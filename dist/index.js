@@ -1,16 +1,14 @@
+const e = document.documentElement;
+const b = document.getElementsByTagName("body")[0];
 let wid = hgt = mouseX = mouseY = 0;
 
-window.onload = function() {doResize();};
+window.onload = function() {
+	doResize();
+};
 
 function doResize() {
-
-	const w = window,
-	    d = document,
-	    e = d.documentElement,
-	    g = d.getElementsByTagName('body')[0];
-
-    wid = w.innerWidth || e.clientWidth || g.clientWidth;
-    hgt = w.innerHeight|| e.clientHeight|| g.clientHeight;
+    wid = window.innerWidth || e.clientWidth || b.clientWidth;
+    hgt = window.innerHeight|| e.clientHeight|| b.clientHeight;
 
 	draw();
 }
