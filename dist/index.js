@@ -1,5 +1,6 @@
 const space = document.getElementById("space");
-const stars = document.getElementById("stars");
+const stars1 = document.getElementById("stars1");
+const stars2 = document.getElementById("stars2");
 
 let wid = hgt = 0;
 let mouseX = mouseY = 0;
@@ -36,12 +37,21 @@ function draw() {
 	space.style.left = (offsetX-off)+"px";
 	space.style.top = (offsetY-off)+"px";
 
+	off = 120;
+	offsetX = off*(mouseX/wid);
+	offsetY = off*(mouseY/hgt);
+
+	stars1.style.width = (wid+off)+"px";
+	stars1.style.height = (hgt+off)+"px";
+	stars1.style.left = (offsetX-off)+"px";
+	stars1.style.top = (offsetY-off)+"px";
+
 	off = 160;
 	offsetX = off*(mouseX/wid);
 	offsetY = off*(mouseY/hgt);
 
-	stars.style.width = (wid+off)+"px";
-	stars.style.height = (hgt+off)+"px";
-	stars.style.left = (offsetX-off)+"px";
-	stars.style.top = (offsetY-off)+"px";
+	stars2.style.width = (wid+off)+"px";
+	stars2.style.height = (hgt+off)+"px";
+	stars2.style.left = (offsetX-off)+"px";
+	stars2.style.top = (offsetY-off)+"px";
 }
