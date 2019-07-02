@@ -1,20 +1,14 @@
-const space = document.getElementById("space");
-const stars = document.getElementById("stars");
+const e = document.documentElement;
+const b = document.getElementsByTagName("body")[0];
+let wid = hgt = mouseX = mouseY = 0;
 
-let wid = hgt = 0;
-let mouseX = mouseY = 0;
-
-window.onload = function() {doResize();};
+window.onload = function() {
+	doResize();
+};
 
 function doResize() {
-
-	const w = window,
-	    d = document,
-	    e = d.documentElement,
-	    g = d.getElementsByTagName('body')[0];
-
-    wid = w.innerWidth || e.clientWidth || g.clientWidth;
-    hgt = w.innerHeight|| e.clientHeight|| g.clientHeight;
+    wid = window.innerWidth || e.clientWidth || b.clientWidth;
+    hgt = window.innerHeight|| e.clientHeight|| b.clientHeight;
 
 	draw();
 }
@@ -27,21 +21,17 @@ function doMouse(event) {
 }
 
 function draw() {
-	let off = 80;
-	let offsetX = off*(mouseX/wid);
-	let offsetY = off*(mouseY/hgt);
+	const offsets = [80,120,160];
+	const bg = document.getElementsByClassName("bg-element");
 
-	space.style.width = (wid+off)+"px";
-	space.style.height = (hgt+off)+"px";
-	space.style.left = (offsetX-off)+"px";
-	space.style.top = (offsetY-off)+"px";
+	for (let i=0; i<3; i++) {
+		const off = offsets[i];
+		const offsetX = off*(mouseX/wid);
+		const offsetY = off*(mouseY/hgt);
 
-	off = 160;
-	offsetX = off*(mouseX/wid);
-	offsetY = off*(mouseY/hgt);
-
-	stars.style.width = (wid+off)+"px";
-	stars.style.height = (hgt+off)+"px";
-	stars.style.left = (offsetX-off)+"px";
-	stars.style.top = (offsetY-off)+"px";
+		bg[i].style.width = (wid+off)+"px";
+		bg[i].style.height = (hgt+off)+"px";
+		bg[i].style.left = (offsetX-off)+"px";
+		bg[i].style.top = (offsetY-off)+"px";
+	}
 }

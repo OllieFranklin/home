@@ -10,12 +10,16 @@
 			overflow: hidden;
 		}
 		#space {
-			background-image: url("space-background.png");
+			background-image: url("space-background.jpg");
 			z-index: 0;
 		}
-		#stars {
-			background-image: url("stars-background.png");
+		#stars1 {
+			background-image: url("stars1-background.png");
 			z-index: 1;
+		}
+		#stars2 {
+			background-image: url("stars2-background.png");
+			z-index: 2;
 		}
 		.bg-element {
 			background-position: center;
@@ -42,7 +46,8 @@
 <body onresize="doResize()" onmousemove="doMouse(event)">
 
 	<div id="space" class="bg-element"></div>
-	<div id="stars" class="bg-element"></div>
+	<div id="stars1" class="bg-element"></div>
+	<div id="stars2" class="bg-element"></div>
 
 	<img src="logo.png" id="logo">
 	
