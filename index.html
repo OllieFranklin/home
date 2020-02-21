@@ -110,13 +110,9 @@
 		<img src="planet2.svg" class="planet" id="planet2">
 
 		<script type="text/javascript">
-		const logoBounds = document.getElementById("logo").getBoundingClientRect();
-
 		const w=window,d=document,e=d.documentElement,g=d.getElementsByTagName('body')[0];
 		const WIDTH=w.innerWidth||e.clientWidth||g.clientWidth;
 		const HEIGHT=w.innerHeight||e.clientHeight||g.clientHeight;
-
-		const MARGIN = 0.025*HEIGHT;
 
 		const NUM_STARS = WIDTH*HEIGHT / 25000;
 		
@@ -133,22 +129,18 @@
 
 		function addStar(name) {
 				
-				let leftN = Math.random();
-				let topN = Math.random();
+				let left = Math.random();
+				let top = Math.random();
 
-				if (!(leftN*WIDTH > logoBounds.left && leftN*WIDTH < logoBounds.right &&
-					topN*HEIGHT > logoBounds.top && topN*HEIGHT < logoBounds.bottom)) {
-
-					let star = document.createElement("IMG");
-					star.src = name + ".svg";
-					star.className = "star";
-					star.id = name;
-				
-					star.style.animationDuration = (5 + Math.random()*10).toString() + "s";
-					star.style.left = (leftN*100).toString() + "%";
-					star.style.top = (topN*100).toString() + "%";
-					document.body.appendChild(star);
-				}
+				let star = document.createElement("IMG");
+				star.src = name + ".svg";
+				star.className = "star";
+				star.id = name;
+			
+				star.style.animationDuration = (5 + Math.random()*10).toString() + "s";
+				star.style.left = (left*100).toString() + "%";
+				star.style.top = (top*100).toString() + "%";
+				document.body.appendChild(star);
 		}
 
 		</script>
