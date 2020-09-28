@@ -1,0 +1,24 @@
+{
+  "commits": [
+    {
+      "sha": "3db2574b8423b8f4c1b4208bc6de81269f5d3ec9",
+      "name": "final"
+    },
+    {
+      "sha": "7bf4db51671c768ffe2be77f3359c8e5ae40d48e",
+      "name": "Iterpolation success and colour pallette redesign"
+    },
+    {
+      "sha": "610eff67aabcd22eab50256ee24376da096a9e8f",
+      "name": "Beginning to play with interpolation"
+    },
+    {
+      "sha": "ab113c350c81e43e3d5d7707de6aaa7badf4edb5",
+      "name": "Finished original alphabet"
+    },
+    {
+      "sha": "8fc2911d729703f3afca7e08660553d214f365d8",
+      "name": "Created basic ABC"
+    }
+  ]
+}
