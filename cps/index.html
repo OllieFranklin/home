@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+	<style type="text/css">
+		* {
+	  		-webkit-touch-callout: none; /* iOS Safari */
+	    	-webkit-user-select: none; /* Safari */
+	  		-khtml-user-select: none; /* Konqueror HTML */
+	 		-moz-user-select: none; /* Old versions of Firefox */
+	    	-ms-user-select: none; /* Internet Explorer/Edge */
+			user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+		}
+
+		body {
+			text-align: center;
+			font-size: 8em;
+		}
+
+	</style>
+
+
+</head>
+<body onclick="addClick()">
+
+	<p id="cps"></p>
+
+
+	<script type="text/javascript">
+
+		document.oncontextmenu=new Function("addClick(); return false;");
+
+		let clicks = 0;
+
+		setInterval(function() {
+			document.body.innerHTML = clicks;
+		}, 100);
+
+		function removeClick() {
+			clicks--;
+		}
+
+		function addClick() {
+			clicks++;
+			setTimeout(removeClick, 1000);
+		}
+
+		document.addEventListener('click', addClick);
+
+	</script>
+
+</body>
+</html>
