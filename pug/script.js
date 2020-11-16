@@ -13,10 +13,6 @@ window.onresize = function(event) {
 };
 
 function onResize() {
-	// let pugWidth = parseInt($("#pug").css("width"), 10);
-	// let pugHeight = imageAspectRatio*pugWidth;
- //    $("#pug").css("height", pugHeight);
-
 	let pugHeight = parseInt($("#pug").css("height"), 10);
 	initialTranslation = -pugHeight;
 	i = 0;
@@ -27,12 +23,18 @@ function onResize() {
 function draw() {
 
 	let jumpHeight = parseInt($(document).height(), 10) / 10;
+	let scale = 1.03 - (0.03 * Math.sin(i));
 
-	let yOffset = Math.min(jumpHeight * Math.sin(i), 0);
+
+	let pugHeight = parseInt($("#pug").css("height"), 10);
+
+	let scaleOffset = pugHeight - (scale * pugHeight);
+	let yOffset = Math.min(jumpHeight * Math.sin(i), 0) + scaleOffset;
 
 	let translation = "translateY(" + (initialTranslation + yOffset - 25) + "px)";
+	let scaleString = "scaleY(" + scale + ")";
 
-	$("#pug").css("transform", translation);
+	$("#pug").css("transform", translation + " " + scaleString);
 
 	i += 0.1;
 }

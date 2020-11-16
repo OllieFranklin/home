@@ -39,6 +39,11 @@
 		
 		#hand {
 			height: 100%;
+			transform-origin: 85% 0%;
+			animation: rotate-hand linear 8s infinite;
+			animation-timing-function: ease-in-out;
+			position: relative;
+			top: -5px;
 		}
 
 		#pug {
@@ -60,6 +65,24 @@
 			font-style: normal;
 			font-variant: normal;
 			text-transform: none;
+		}
+
+		@keyframes rotate-hand {
+			0% {
+				transform: rotate(0deg);
+			}
+			25% {
+				transform: rotate(-6deg);
+			}
+			50% {
+				transform: rotate(0deg);
+			}
+			75% {
+				transform: rotate(6deg);
+			}
+			100% {
+				transform: rotate(0deg);
+			}
 		}
 
 	</style>
