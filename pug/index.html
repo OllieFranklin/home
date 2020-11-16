@@ -7,40 +7,61 @@
 	<script src="jquery-3.5.1.min.js"></script>
 
 	<style>
-		#content-wrapper {
+
+		.flex-box {
+			display: -webkit-flex;
 			display: flex;
   			justify-content: center;
+			position: fixed;
   			width: 100%;
-  			height: 100%;
   			padding: 0px;
   			margin: 0px;
+  			border: none;
+		}
+
+		#hand-wrapper {
+			top: 0%;
+  			height: 25%;
+		}
+
+
+		#pug-wrapper {
+  			top: 25%;
+  			height: 55%;
+ 		}
+
+
+		#text-wrapper {
+  			top: 80%;
+  			height: 20%;
+  			align-items: center;
+ 		}
+		
+		#hand {
+			height: 100%;
 		}
 
 		#pug {
+			height: 60%;
 			position: relative;
-			width: 15%;
-			top: 90%;
+			top: 100%;
 			transform: translateY(-100%);
 			display: none;
 		}
 
-		@media screen and (max-width: 1600px) {
-			#pug {
-				width: 20%;
-			}
+		.hbd-font {
+			font-family: "Comic Sans MS", cursive, sans-serif;
+			font-size: 40px;
+			letter-spacing: 0px;
+			word-spacing: 0px;
+			color: #000000;
+			font-weight: 400;
+			text-decoration: none;
+			font-style: normal;
+			font-variant: normal;
+			text-transform: none;
 		}
 
-		@media screen and (max-width: 1300px) {
-			#pug {
-				width: 25%;
-			}
-		}
-
-		@media screen and (max-width: 1200px) {
-			#pug {
-				width: 35%;
-			}
-		}
 	</style>
 </head>
 
@@ -48,8 +69,16 @@
 
 <body>
 
-	<div id="content-wrapper"> <!-- allows content to be centred -->
-		<img id="pug" src="pug.png"></img>
+	<div id="hand-wrapper" class="flex-box"> <!-- allows content to be centred -->
+		<img id="hand" src="hand.png">
+	</div>
+
+	<div id="pug-wrapper" class="flex-box"> <!-- allows content to be centred -->
+		<img id="pug" src="pug.png" >
+	</div>
+
+	<div id="text-wrapper" class="flex-box hbd-font"> <!-- allows content to be centred -->
+		Happy Birthday!
 	</div>
 
 	<script type="text/javascript" src="script.js"></script>
