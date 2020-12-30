@@ -4,6 +4,9 @@ let i;
 
 
 $(document).ready(function(){
+
+	jQuery("#text-wrapper").fitText(1, { minFontSize: '1px', maxFontSize: '100px' });
+
 	onResize();
 	setInterval(draw, 1000/60);
 }); 
@@ -13,6 +16,7 @@ window.onresize = function(event) {
 };
 
 function onResize() {
+
 	let pugHeight = parseInt($("#pug").css("height"), 10);
 	initialTranslation = -pugHeight;
 	i = 0;
