@@ -4,10 +4,13 @@
 <head>
 	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 	<meta content="utf-8" http-equiv="encoding">
+	<meta name="viewport" content="initial-scale=1">
 	<title>Tuatara luck calculator</title>
 </head>
 
 <body>
+
+	<h1>Tuatara Luck Calculator</h1>
 
 	<p>
 		<label for="weather">What is the weather like today?</label>
@@ -65,7 +68,7 @@
 
 	<button id="go" onclick="getLuck">Calculate</button>
 
-	<h1 id="luck"></h1>
+	<h2 id="luck"></h2>
 
 	<script type="text/javascript">
 		
@@ -131,7 +134,7 @@
 			const e = document.getElementById("luck");
 			
 			if (weather !== null && pos[0] !== null && pos[1] !== null && pos[2] !== null) {
-				const luck = weather*pos[0] + weather*pos[1] + weather*pos[2];
+				const luck = Math.round(weather*pos[0] + weather*pos[1] + weather*pos[2]);
 				e.innerHTML = luck + "% luck today";
 			} else {
 				e.innerHTML = "Please select all the things";
