@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
+	<title>Tuatara luck calculator</title>
+</head>
+
+<body>
+
+	<p>
+		<label for="weather">What is the weather like today?</label>
+		<select name="weather" id="weather">
+			<option value="none" selected="selected"></option>
+			<option value="sunny">Hot/Sunny</option>
+			<option value="mild">Mild/Windy</option>
+			<option value="rainy">Cold/Rainy</option>
+		</select>
+	</p>
+
+	<p>
+		<label for="num_tuataras">How many tuataras are visible?</label>
+		<select name="num_tuataras" id="num_tuataras">
+			<option value="none" selected="selected"></option>
+			<option value="0">0</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+		</select>
+	</p>
+
+	<div id="tuatara1" style="display:none">
+		<h3>Tuatara 1</h3>
+		<label for="tuatara1">Where is the tuatara?</label>
+		<select name="tuatara1" id="tuatara1_dropdown">
+			<option value="none" selected="selected"></option>
+			<option value="half_out">Partially inside a tunnel</option>
+			<option value="fully_out">Fully visible</option>
+			<option value="under_light">Under a lamp</option>
+		</select>
+	</div>
+
+	<div id="tuatara2" style="display:none">
+		<h3>Tuatara 2</h3>
+		<label for="tuatara2">Where is the tuatara?</label>
+		<select name="tuatara2" id="tuatara2_dropdown">
+			<option value="none" selected="selected"></option>
+			<option value="half_out">Partially inside a tunnel</option>
+			<option value="fully_out">Fully visible</option>
+			<option value="under_light">Under a lamp</option>
+		</select>
+	</div>
+
+	<div id="tuatara3" style="display:none">
+		<h3>Tuatara 3</h3>
+		<label for="tuatara3">Where is the tuatara?</label>
+		<select name="tuatara3" id="tuatara3_dropdown">
+			<option value="none" selected="selected"></option>
+			<option value="half_out">Partially inside a tunnel</option>
+			<option value="fully_out">Fully visible</option>
+			<option value="under_light">Under a lamp</option>
+		</select>
+	</div>
+
+	<button id="go" onclick="getLuck">Calculate</button>
+
+	<h1 id="luck"></h1>
+
+	<script type="text/javascript">
+		
+		const Weather = {
+			"SUNNY": 20,
+			"MILD": 28,
+			"RAINY": 33
+		};
+
+		const Position = {
+			"NOT_OUT": 0,
+			"UNDER_LIGHT": 0.3,
+			"FULLY_OUT": 0.6,
+			"HALF_OUT": 1
+		};
+
+		let weather = null;
+		let pos = [null, null, null];
+
+		function selectNum(){
+		    var e = document.getElementById("num_tuataras");
+		    const index = e.selectedIndex - 1;
+		    if (index === 0) {
+		    	document.getElementById("tuatara1").style.display = "none";
+				document.getElementById("tuatara2").style.display = "none";
+				document.getElementById("tuatara3").style.display = "none";
+		    	pos[0] = pos[1] = pos[2] = Position.NOT_OUT;
+		    }
+		    if (index === 1) {
+				document.getElementById("tuatara1").style.display = "block";
+				document.getElementById("tuatara2").style.display = "none";
+				document.getElementById("tuatara3").style.display = "none";
+				pos[1] = pos[2] = Position.NOT_OUT;
+		    } else if (index === 2) {
+				document.getElementById("tuatara1").style.display = "block";
+				document.getElementById("tuatara2").style.display = "block";
+				document.getElementById("tuatara3").style.display = "none";
+				pos[2] = Position.NOT_OUT;
+			} if (index === 3) {
+				document.getElementById("tuatara1").style.display = "block";
+				document.getElementById("tuatara2").style.display = "block";
+				document.getElementById("tuatara3").style.display = "block";
+			}
+		}
+
+		function selectPos(num) {
+			const id = "tuatara" + num + "_dropdown";
+			const e = document.getElementById(id);
+
+			if (e.value === "half_out") {
+				pos[num - 1] = 
+				pos[num - 1] = Position.HALF_OUT;
+			} else if (e.value === "fully_out") {
+				pos[num - 1] = Position.FULLY_OUT;
+			} else if (e.value === "under_light") {
+				pos[num - 1] = Position.UNDER_LIGHT;
+			}
+
+		}
+
+		function getLuck() {
+
+			const e = document.getElementById("luck");
+			
+			if (weather !== null && pos[0] !== null && pos[1] !== null && pos[2] !== null) {
+				const luck = weather*pos[0] + weather*pos[1] + weather*pos[2];
+				e.innerHTML = luck + "% luck today";
+			} else {
+				e.innerHTML = "Please select all the things";
+			}
+
+		}
+
+		function selectWeather() {
+			var e = document.getElementById("weather");
+		    
+		    if (e.value == "sunny") {
+		    	weather = Weather.SUNNY;
+		    } else if (e.value == "mild") {
+		    	weather = Weather.MILD;
+		    } else if (e.value == "rainy") {
+		    	weather = Weather.RAINY;
+		    }
+		}
+
+
+		window.onload = function() {
+
+			document.getElementById("weather").addEventListener("click", selectWeather);
+			document.getElementById("weather").value = "none";
+
+
+			document.getElementById("num_tuataras").addEventListener("click", selectNum);
+			document.getElementById("num_tuataras").value = "none";
+			document.getElementById("tuatara1_dropdown").addEventListener("click", function() {selectPos(1)});
+			document.getElementById("tuatara1_dropdown").value = "none";
+			document.getElementById("tuatara2_dropdown").addEventListener("click", function() {selectPos(2)});
+			document.getElementById("tuatara2_dropdown").value = "none";
+			document.getElementById("tuatara3_dropdown").addEventListener("click", function() {selectPos(3)});
+			document.getElementById("tuatara3_dropdown").value = "none";
+
+			document.getElementById("go").addEventListener("click", getLuck);
+		}
+
+
+	</script>
+
+</body>
+</html>
