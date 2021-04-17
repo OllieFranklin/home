@@ -159,8 +159,6 @@
 
 			document.getElementById("weather").addEventListener("click", selectWeather);
 			document.getElementById("weather").value = "none";
-
-
 			document.getElementById("num_tuataras").addEventListener("click", selectNum);
 			document.getElementById("num_tuataras").value = "none";
 			document.getElementById("tuatara1_dropdown").addEventListener("click", function() {selectPos(1)});
@@ -171,6 +169,12 @@
 			document.getElementById("tuatara3_dropdown").value = "none";
 
 			document.getElementById("go").addEventListener("click", getLuck);
+
+			setInterval(function() {
+				selectPos(1);
+				selectPos(2);
+				selectPos(3);
+			}, 1000);
 		}
 
 
