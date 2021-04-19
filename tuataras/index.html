@@ -21,18 +21,7 @@
 			<option value="rainy">Cold/Rainy</option>
 		</select>
 	</p>
-
-	<!-- <p>
-		<label for="num_tuataras">How many tuataras are visible?</label>
-		<select name="num_tuataras" id="num_tuataras">
-			<option value="none" selected="selected"></option>
-			<option value="0">0</option>
-			<option value="1">1</option>
-			<option value="2">2</option>
-			<option value="3">3</option>
-		</select>
-	</p>
- -->
+	
 	<div id="tuatara1">
 		<h3>Tuatara 1</h3>
 		<label for="tuatara1">Where is the tuatara?</label>
@@ -113,6 +102,11 @@
 
 		function getLuck() {
 
+			selectWeather();
+			selectPos(1);
+			selectPos(2);
+			selectPos(3);
+
 			const e = document.getElementById("luck");
 			
 			if (weather !== null) {
@@ -124,7 +118,6 @@
 				} else {
 					e.innerHTML = luck + "% luck today";
 				}
-
 			} else {
 				e.innerHTML = "Please select all the things";
 			}
@@ -146,24 +139,14 @@
 
 		window.onload = function() {
 
-			document.getElementById("weather").addEventListener("click", selectWeather);
 			document.getElementById("weather").value = "none";
-			document.getElementById("tuatara1_dropdown").addEventListener("click", function() {selectPos(1)});
 			document.getElementById("tuatara1_dropdown").value = "not_visible";
-			document.getElementById("tuatara2_dropdown").addEventListener("click", function() {selectPos(2)});
 			document.getElementById("tuatara2_dropdown").value = "not_visible";
-			document.getElementById("tuatara3_dropdown").addEventListener("click", function() {selectPos(3)});
 			document.getElementById("tuatara3_dropdown").value = "not_visible";
 
 			document.getElementById("moved").checked = false;
 
 			document.getElementById("go").addEventListener("click", getLuck);
-
-			setInterval(function() {
-				selectPos(1);
-				selectPos(2);
-				selectPos(3);
-			}, 1000);
 		}
 
 
