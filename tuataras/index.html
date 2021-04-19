@@ -37,8 +37,7 @@
 		<h3>Tuatara 1</h3>
 		<label for="tuatara1">Where is the tuatara?</label>
 		<select name="tuatara1" id="tuatara1_dropdown">
-			<option value="none" selected="selected"></option>
-			<option value="not_visible">Not visible</option>
+			<option value="not_visible" selected="selected">Not visible</option>
 			<option value="half_out">Partially inside a tunnel</option>
 			<option value="fully_out">Fully visible</option>
 			<option value="under_light">Under a lamp</option>
@@ -49,8 +48,7 @@
 		<h3>Tuatara 2</h3>
 		<label for="tuatara2">Where is the tuatara?</label>
 		<select name="tuatara2" id="tuatara2_dropdown">
-			<option value="none" selected="selected"></option>
-			<option value="not_visible">Not visible</option>
+			<option value="not_visible" selected="selected">Not visible</option>
 			<option value="half_out">Partially inside a tunnel</option>
 			<option value="fully_out">Fully visible</option>
 			<option value="under_light">Under a lamp</option>
@@ -61,19 +59,24 @@
 		<h3>Tuatara 3</h3>
 		<label for="tuatara3">Where is the tuatara?</label>
 		<select name="tuatara3" id="tuatara3_dropdown">
-			<option value="none" selected="selected"></option>
-			<option value="not_visible">Not visible</option>
+			<option value="not_visible" selected="selected">Not visible</option>
 			<option value="half_out">Partially inside a tunnel</option>
 			<option value="fully_out">Fully visible</option>
 			<option value="under_light">Under a lamp</option>
 		</select>
 	</div>
 
+	<p>
+		<input id="moved" type="checkbox" ><label for="moved">   A tuatara moved!</label><br>
+	</p>
+
 	<button id="go" onclick="getLuck">Calculate</button>
 
 	<h2 id="luck"></h2>
 
 	<script type="text/javascript">
+
+		const BONUS = 15;
 		
 		const Weather = {
 			"SUNNY": 20,
@@ -89,21 +92,7 @@
 		};
 
 		let weather = null;
-		let pos = [null, null, null];
-
-		// function selectNum(){
-		//     var e = document.getElementById("num_tuataras");
-		//     const index = e.selectedIndex - 1;
-		//     if (index === 0) {
-		//     	pos[0] = pos[1] = pos[2] = Position.NOT_OUT;
-		//     }
-		//     if (index === 1) {
-		// 		pos[1] = pos[2] = Position.NOT_OUT;
-		//     } else if (index === 2) {
-		// 		pos[2] = Position.NOT_OUT;
-		// 	} if (index === 3) {
-		// 	}
-		// }
+		let pos = [Position.NOT_OUT, Position.NOT_OUT, Position.NOT_OUT];
 
 		function selectPos(num) {
 			console.log("thing");
@@ -126,9 +115,16 @@
 
 			const e = document.getElementById("luck");
 			
-			if (weather !== null && pos[0] !== null && pos[1] !== null && pos[2] !== null) {
+			if (weather !== null) {
 				const luck = Math.round(weather*pos[0] + weather*pos[1] + weather*pos[2]);
-				e.innerHTML = luck + "% luck today";
+
+				const hasBonus = document.getElementById("moved").checked;
+				if (hasBonus) {
+					e.innerHTML = (luck + BONUS) + "% luck today (" + BONUS + "% bonus luck)"
+				} else {
+					e.innerHTML = luck + "% luck today";
+				}
+
 			} else {
 				e.innerHTML = "Please select all the things";
 			}
@@ -152,14 +148,14 @@
 
 			document.getElementById("weather").addEventListener("click", selectWeather);
 			document.getElementById("weather").value = "none";
-			// document.getElementById("num_tuataras").addEventListener("click", selectNum);
-			// document.getElementById("num_tuataras").value = "none";
 			document.getElementById("tuatara1_dropdown").addEventListener("click", function() {selectPos(1)});
-			document.getElementById("tuatara1_dropdown").value = "none";
+			document.getElementById("tuatara1_dropdown").value = "not_visible";
 			document.getElementById("tuatara2_dropdown").addEventListener("click", function() {selectPos(2)});
-			document.getElementById("tuatara2_dropdown").value = "none";
+			document.getElementById("tuatara2_dropdown").value = "not_visible";
 			document.getElementById("tuatara3_dropdown").addEventListener("click", function() {selectPos(3)});
-			document.getElementById("tuatara3_dropdown").value = "none";
+			document.getElementById("tuatara3_dropdown").value = "not_visible";
+
+			document.getElementById("moved").checked = false;
 
 			document.getElementById("go").addEventListener("click", getLuck);
 
