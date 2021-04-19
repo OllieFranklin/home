@@ -22,7 +22,7 @@
 		</select>
 	</p>
 
-	<p>
+	<!-- <p>
 		<label for="num_tuataras">How many tuataras are visible?</label>
 		<select name="num_tuataras" id="num_tuataras">
 			<option value="none" selected="selected"></option>
@@ -32,34 +32,37 @@
 			<option value="3">3</option>
 		</select>
 	</p>
-
-	<div id="tuatara1" style="display:none">
+ -->
+	<div id="tuatara1">
 		<h3>Tuatara 1</h3>
 		<label for="tuatara1">Where is the tuatara?</label>
 		<select name="tuatara1" id="tuatara1_dropdown">
 			<option value="none" selected="selected"></option>
+			<option value="not_visible">Not visible</option>
 			<option value="half_out">Partially inside a tunnel</option>
 			<option value="fully_out">Fully visible</option>
 			<option value="under_light">Under a lamp</option>
 		</select>
 	</div>
 
-	<div id="tuatara2" style="display:none">
+	<div id="tuatara2">
 		<h3>Tuatara 2</h3>
 		<label for="tuatara2">Where is the tuatara?</label>
 		<select name="tuatara2" id="tuatara2_dropdown">
 			<option value="none" selected="selected"></option>
+			<option value="not_visible">Not visible</option>
 			<option value="half_out">Partially inside a tunnel</option>
 			<option value="fully_out">Fully visible</option>
 			<option value="under_light">Under a lamp</option>
 		</select>
 	</div>
 
-	<div id="tuatara3" style="display:none">
+	<div id="tuatara3">
 		<h3>Tuatara 3</h3>
 		<label for="tuatara3">Where is the tuatara?</label>
 		<select name="tuatara3" id="tuatara3_dropdown">
 			<option value="none" selected="selected"></option>
+			<option value="not_visible">Not visible</option>
 			<option value="half_out">Partially inside a tunnel</option>
 			<option value="fully_out">Fully visible</option>
 			<option value="under_light">Under a lamp</option>
@@ -88,38 +91,28 @@
 		let weather = null;
 		let pos = [null, null, null];
 
-		function selectNum(){
-		    var e = document.getElementById("num_tuataras");
-		    const index = e.selectedIndex - 1;
-		    if (index === 0) {
-		    	document.getElementById("tuatara1").style.display = "none";
-				document.getElementById("tuatara2").style.display = "none";
-				document.getElementById("tuatara3").style.display = "none";
-		    	pos[0] = pos[1] = pos[2] = Position.NOT_OUT;
-		    }
-		    if (index === 1) {
-				document.getElementById("tuatara1").style.display = "block";
-				document.getElementById("tuatara2").style.display = "none";
-				document.getElementById("tuatara3").style.display = "none";
-				pos[1] = pos[2] = Position.NOT_OUT;
-		    } else if (index === 2) {
-				document.getElementById("tuatara1").style.display = "block";
-				document.getElementById("tuatara2").style.display = "block";
-				document.getElementById("tuatara3").style.display = "none";
-				pos[2] = Position.NOT_OUT;
-			} if (index === 3) {
-				document.getElementById("tuatara1").style.display = "block";
-				document.getElementById("tuatara2").style.display = "block";
-				document.getElementById("tuatara3").style.display = "block";
-			}
-		}
+		// function selectNum(){
+		//     var e = document.getElementById("num_tuataras");
+		//     const index = e.selectedIndex - 1;
+		//     if (index === 0) {
+		//     	pos[0] = pos[1] = pos[2] = Position.NOT_OUT;
+		//     }
+		//     if (index === 1) {
+		// 		pos[1] = pos[2] = Position.NOT_OUT;
+		//     } else if (index === 2) {
+		// 		pos[2] = Position.NOT_OUT;
+		// 	} if (index === 3) {
+		// 	}
+		// }
 
 		function selectPos(num) {
+			console.log("thing");
 			const id = "tuatara" + num + "_dropdown";
 			const e = document.getElementById(id);
 
-			if (e.value === "half_out") {
-				pos[num - 1] = 
+			if (e.value === "not_visible") {
+				pos[num - 1] = Position.NOT_OUT;
+			} else if (e.value === "half_out") {
 				pos[num - 1] = Position.HALF_OUT;
 			} else if (e.value === "fully_out") {
 				pos[num - 1] = Position.FULLY_OUT;
@@ -159,8 +152,8 @@
 
 			document.getElementById("weather").addEventListener("click", selectWeather);
 			document.getElementById("weather").value = "none";
-			document.getElementById("num_tuataras").addEventListener("click", selectNum);
-			document.getElementById("num_tuataras").value = "none";
+			// document.getElementById("num_tuataras").addEventListener("click", selectNum);
+			// document.getElementById("num_tuataras").value = "none";
 			document.getElementById("tuatara1_dropdown").addEventListener("click", function() {selectPos(1)});
 			document.getElementById("tuatara1_dropdown").value = "none";
 			document.getElementById("tuatara2_dropdown").addEventListener("click", function() {selectPos(2)});
