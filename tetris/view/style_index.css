@@ -1,0 +1,113 @@
+#page {
+    background: #ededed;
+}
+
+#navigation {
+    margin: 0px;
+    border-radius: 0px;
+}
+
+#main-container {
+    display: flex;
+    justify-content: center;
+}
+
+#game-container {
+    height: 90vh;
+    margin-top: -10px;
+    display: none;
+}
+
+#board {
+    width: 45vh;
+    height: 90vh;
+    min-height: 520px;
+    min-width: 260px;
+    padding-top: 200%;
+    width: 50%;
+    margin: 10px;
+    padding: 0px;
+    border: none;
+}
+
+#stats-container {
+    width: inherit;
+    flex-direction: column;
+    text-align: center;
+    /*flex-wrap: wrap;*/
+}
+
+.card {
+    background: #fff;
+    padding: 16px;
+    margin: 10px;
+    border-radius: 4px;
+}
+
+#stats-panel-1 {
+    height: calc(24% - 20px);
+    min-height: 12rem;
+}
+
+
+#stats-panel-2 {
+    height: calc(38% - 20px);
+}
+
+#stats-panel-3 {
+    height: calc(38% - 20px);
+}
+
+#next-box {
+    height: 80%;
+}
+
+#stats-container > div {
+    width: 13rem;
+    display: flex;
+    flex-direction: column;
+}
+
+#stats-container > div > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#level-selection-container {
+    width: 50vh;
+    height: 50vh;
+    display: flex;
+}
+
+#level-selection-card {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-sm {
+    display: none;
+}
+
+.stat-lg {
+    display: block;
+}
+
+@media screen and (max-height: 825px) {
+
+    .stat-sm {
+        display: inline;
+    }
+
+    .stat-lg {
+        display: none;
+    }
+
+    #stats-container > div {
+        width: 18rem;
+    }
+
+}

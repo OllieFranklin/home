@@ -4,128 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- Bootstrap 5.0.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+	<link rel="stylesheet" href="view/style_index.css">
 
-
-	<style type="text/css">
-
-		#page {
-			background: #ededed;
-		}
-
-		#navigation {
-			margin: 0px;
-			border-radius: 0px;
-		}
-
-		#main-container {
-			display: flex;
-			justify-content: center;
-		}
-
-		#game-container {
-			height: 90vh;
-			margin-top: -10px;
-			display: none;
-		}
-
-		#board {
-		  width: 45vh;
-		  height: 90vh;
-		  min-height: 520px;
-		  min-width: 260px;
-		  padding-top: 200%;
-		  width: 50%;
-		  margin: 10px;
-		  padding: 0px;
-		  border: none;
-		}
-
-		#stats-container {
-			width: inherit;
-			flex-direction: column;
-			text-align: center;
-			/*flex-wrap: wrap;*/
-		}
-
-		.card {
-			background: #fff;
-			padding: 16px;
-			margin: 10px;
-			border-radius: 4px;
-		}
-
-		#stats-panel-1 {
-			height: calc(24% - 20px);
-			min-height: 12rem;
-		}
-
-
-		#stats-panel-2 {
-			height: calc(38% - 20px);
-		}
-
-		#stats-panel-3 {
-			height: calc(38% - 20px);
-		}
-
-		#next-box {
-			height: 80%;
-		}
-
-		#stats-container > div {
-			width: 13rem;
-			display: flex;
-			flex-direction: column;
-		}
-
-		#stats-container > div > div {
-			display: flex;
-        	flex-direction: column;
-			align-items: center;
-        	justify-content: center;
-		}
-
-		#level-selection-container {
-			width: 50vh;
-			height: 50vh;
-			display: flex;
-		}
-
-		#level-selection-card {
-			width: 100%;
-			height: 100%;
-			display: flex;
-			flex-direction: column;
-		}
-
-		.stat-sm {
-			display: none;
-		}
-
-		.stat-lg {
-			display: block;
-		}
-
-		@media screen and (max-height: 825px) {
-
-			.stat-sm {
-				display: inline;
-			}
-
-			.stat-lg {
-				display: none;
-			}
-
-			#stats-container > div {
-				width: 18rem;
-			}
-
-		}
-
-	</style>
+    <title>Tetris</title>
 
   </head>
   <body>
@@ -214,8 +98,6 @@
   		</div>
   	</div>
 
-
-	<script type="text/javascript" src="gravity.js"></script>
   	<script type="text/javascript">
 
   		var c = null;
@@ -312,5 +194,26 @@
   	</script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+	<!-- MODEL -->
+    <script type="text/javascript" src="model/_shared.js"></script>
+	<script type="text/javascript" src="model/point.js"></script>
+	<script type="text/javascript" src="model/gravity.js"></script>
+	<script type="text/javascript" src="model/orientation.js"></script>
+	<script type="text/javascript" src="model/move.js"></script>
+	<script type="text/javascript" src="model/autoshift.js"></script>
+	<script type="text/javascript" src="model/cell.js"></script>
+	<script type="text/javascript" src="model/board.js"></script>
+	<script type="text/javascript" src="model/tetromino.js"></script>
+	<script type="text/javascript" src="model/game.js"></script>
+
+	<!-- VIEW -->
+	<script type="text/javascript" src="view/board_renderer.js"></script>
+	<script type="text/javascript" src="view/stats_renderer.js"></script>
+
+	<!-- CONTROLLER -->
+	<script type="text/javascript" src="controller/game_controller.js"></script>
+	<script type="text/javascript" src="controller/webpage_controller.js"></script>
+
   </body>
 </html>
