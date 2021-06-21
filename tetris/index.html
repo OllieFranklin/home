@@ -98,53 +98,48 @@
   		</div>
   	</div>
 
+  	<img src="view/textures/tetrominoes/default/I_Tetromino.png" id="I_Tetromino_default" class="texture">
+	<img src="view/textures/tetrominoes/default/J_Tetromino.png" id="J_Tetromino_default" class="texture">
+	<img src="view/textures/tetrominoes/default/L_Tetromino.png" id="L_Tetromino_default" class="texture">
+	<img src="view/textures/tetrominoes/default/O_Tetromino.png" id="O_Tetromino_default" class="texture">
+	<img src="view/textures/tetrominoes/default/S_Tetromino.png" id="S_Tetromino_default" class="texture">
+	<img src="view/textures/tetrominoes/default/T_Tetromino.png" id="T_Tetromino_default" class="texture">
+	<img src="view/textures/tetrominoes/default/Z_Tetromino.png" id="Z_Tetromino_default" class="texture">
+
   	<script type="text/javascript">
 
-  		var c = null;
-  		var ctx;
-  		window.onload = function () {
+  		let c = null;
+  		let ctx, gameController;
+
+  		window.onload = function() {
 			c=document.getElementById("board");
 		    ctx=c.getContext("2d");
-		    c.height = c.offsetHeight;
-			c.width = c.offsetWidth;
-		    draw();
-		    drawNextBox();
 
-		    const range = document.getElementById("level-range");
-		    onRangeChange(range, displayRangeValue);
-		    displayRangeValue();
+		    const game = new Game(0);
+		    const boardRenderer = new BoardRenderer();
+		    gameController = new GameController(game, boardRenderer);
+
+		    // setInterval(gameController.step, 1000/60);
+
+		    resizeBoard();
+		    // const range = document.getElementById("level-range");
+		    // onRangeChange(range, displayRangeValue);
+		    // displayRangeValue();
 		}
 
-		window.onresize = function() {
+		function resizeBoard() {
+			console.log("Resized...")
 			if (c == null)
 				return;
 
 			if (c.height != c.offsetHeight) {
 				c.height = c.offsetHeight;
 				c.width = c.offsetWidth;
-				draw();
-				console.log("Resized...")
 			}
 		}
 
-		function draw() {
-			ctx.fillStyle = "#fff";
-			ctx.fillRect(0, 0, c.width, c.height)
-		    const radX = c.width/2;
-		    const radY = c.height/4;
-		    ctx.beginPath();
-		    ctx.arc(radX,radY,radX,0,2*Math.PI);
-		    ctx.stroke();
-		    ctx.beginPath();
-		    ctx.arc(radX,radY*3,radX,0,2*Math.PI);
-		    ctx.stroke();
-		}
-
-		function drawNextBox() {
-			const nextBox = document.getElementById("next-box");
-			const ctx2 = nextBox.getContext("2d");
-			ctx2.fillStyle = "#000";
-			ctx2.fillRect(0, 0, nextBox.width, nextBox.height);
+		window.onresize = function() {
+			resizeBoard();	
 		}
 
 		function showGame() {
@@ -175,9 +170,6 @@
 			document.getElementById("lines-to-level-up").innerHTML 
 				= linesUntilLevelUp(level) + " lines until level " + (Number(level) + 1);
 		}
-
-		
-
 
   	</script>
 

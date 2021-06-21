@@ -96,6 +96,10 @@
     display: block;
 }
 
+.texture {
+    display: none;
+}
+
 @media screen and (max-height: 825px) {
 
     .stat-sm {
