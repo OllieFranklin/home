@@ -113,10 +113,6 @@
 		    const range = document.getElementById("level-range");
 		    onRangeChange(range, displayRangeValue);
 		    displayRangeValue();
-
-		    for (let i=0; i<20; i++) {
-		    	console.log(i + ": " + linesUntilLevelUp(i));
-		    }
 		}
 
 		window.onresize = function() {
@@ -180,15 +176,7 @@
 				= linesUntilLevelUp(level) + " lines until level " + (Number(level) + 1);
 		}
 
-		function linesUntilLevelUp(initLevel) {
-			if (initLevel < 9)
-				return 10*initLevel + 10;
-			
-			if (initLevel < 16)
-				return 100;
-
-			return 10*initLevel - 50
-		}
+		
 
 
   	</script>
@@ -197,6 +185,7 @@
 
 	<!-- MODEL -->
     <script type="text/javascript" src="model/_shared.js"></script>
+	<script type="text/javascript" src="model/game_state.js"></script>
 	<script type="text/javascript" src="model/point.js"></script>
 	<script type="text/javascript" src="model/gravity.js"></script>
 	<script type="text/javascript" src="model/orientation.js"></script>

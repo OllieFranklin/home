@@ -19,20 +19,6 @@ class Board {
 		}
 	}
 
-
-	draw(ctx) {
-
-		ctx.fillStyle = "#333";
-		ctx.fillRect(0, 0, CELL_SIZE*COLS, CELL_SIZE*VISIBLE_ROWS);
-
-		for (let row = 0; row < ROWS; row++) {
-			for (let col = 0; col < COLS; col++) {
-				this.cells[row][col].draw(ctx);
-			}
-		}
-
-	}
-
 	pieceLock() {
 		
 		for (let i=0; i<this.activeTetromino.orientation.cellOffsets.length; i++) {
@@ -94,7 +80,7 @@ class Board {
 				const cell = this.cells[row][col];
 
 				if (cell.isOccupied)
-					this.cells[row-numRows][col].occupy(cell.getTexture());
+					this.cells[row-numRows][col].occupy(cell.toString());
 				else
 					this.cells[row-numRows][col].clear();
 				
@@ -157,7 +143,7 @@ class Board {
 			const cellOffset = this.activeTetromino.orientation.cellOffsets[i];
 			const cell = this.cells[row + cellOffset.y][col + cellOffset.x];
 
-			cell.occupy(this.activeTetromino.texture);
+			cell.occupy(this.activeTetromino.toString());
 			cell.isActiveTetromino = true;
 		}
 
@@ -181,6 +167,20 @@ class Board {
 
 	getNumLinesCleared() {
 		return this.linesToClear.length;
+	}
+
+	getState() {
+		
+		const state = new Array(VISIBLE_ROWS);
+
+		for (let row = 0; row < VISIBLE_ROWS; row++) {
+			state[row] = new Array(COLS);
+			for (let col = 0; col < COLS; col++) {
+				state[row][col] = this.cells[VISIBLE_ROWS - (row + 1)][col].toString();
+			}
+		}
+
+		return state;
 	}
 
 }

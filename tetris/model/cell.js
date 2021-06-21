@@ -8,9 +8,9 @@ class Cell {
 		this.y = CELL_SIZE * VISIBLE_ROWS - CELL_SIZE * (row + 1);
 	}
 
-	occupy(texture) {
-		this.texture = texture;
+	occupy(tetrominoName) {
 		this.isOccupied = true;
+		this.tetrominoName = tetrominoName;
 	}
 
 	clear() {
@@ -18,16 +18,8 @@ class Cell {
 		this.isActiveTetromino = false;
 	}
 
-	draw(ctx) {
-
-		if (!this.isOccupied)
-			return;
-
-		ctx.drawImage(this.texture, this.x, this.y, CELL_SIZE, CELL_SIZE);
-	}
-
-	getTexture() {
-		return this.texture;
+	toString() {
+		return this.isOccupied ? this.tetrominoName : " ";
 	}
 
 }

@@ -48,6 +48,11 @@ class Tetromino {
     getCol() {
     	return this.col;
     }
+
+    toString() {
+    	return this.constructor.name.charAt(0);
+    }
+
 }
 
 class I_Tetromino extends Tetromino {
