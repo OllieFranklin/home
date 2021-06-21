@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+
+
+	<style type="text/css">
+
+		#page {
+			background: #ededed;
+		}
+
+		#navigation {
+			margin: 0px;
+			border-radius: 0px;
+		}
+
+		#main-container {
+			display: flex;
+			justify-content: center;
+		}
+
+		#game-container {
+			height: 90vh;
+			margin-top: -10px;
+			display: none;
+		}
+
+		#board {
+		  width: 45vh;
+		  height: 90vh;
+		  min-height: 520px;
+		  min-width: 260px;
+		  padding-top: 200%;
+		  width: 50%;
+		  margin: 10px;
+		  padding: 0px;
+		  border: none;
+		}
+
+		#stats-container {
+			width: inherit;
+			flex-direction: column;
+			text-align: center;
+			/*flex-wrap: wrap;*/
+		}
+
+		.card {
+			background: #fff;
+			padding: 16px;
+			margin: 10px;
+			border-radius: 4px;
+		}
+
+		#stats-panel-1 {
+			height: calc(24% - 20px);
+			min-height: 12rem;
+		}
+
+
+		#stats-panel-2 {
+			height: calc(38% - 20px);
+		}
+
+		#stats-panel-3 {
+			height: calc(38% - 20px);
+		}
+
+		#next-box {
+			height: 80%;
+		}
+
+		#stats-container > div {
+			width: 13rem;
+			display: flex;
+			flex-direction: column;
+		}
+
+		#stats-container > div > div {
+			display: flex;
+        	flex-direction: column;
+			align-items: center;
+        	justify-content: center;
+		}
+
+		#level-selection-container {
+			width: 50vh;
+			height: 50vh;
+			display: flex;
+		}
+
+		#level-selection-card {
+			width: 100%;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+		}
+
+		.stat-sm {
+			display: none;
+		}
+
+		.stat-lg {
+			display: block;
+		}
+
+		@media screen and (max-height: 825px) {
+
+			.stat-sm {
+				display: inline;
+			}
+
+			.stat-lg {
+				display: none;
+			}
+
+			#stats-container > div {
+				width: 18rem;
+			}
+
+		}
+
+	</style>
+
+  </head>
+  <body>
+
+  	<div id="page" class="container-fluid">
+	    
+  		<div class="row vh-100">
+  			<div id="navigation" class="col-1 col-lg-2 card">
+  				<a href="javascript:showLevelSelect()">Show level select</a>
+  				<a href="javascript:showGame()">Show game</a>
+  			</div>
+  			<div class="col-11 col-lg-10 align-items-center" id="main-container">
+  				<div id="game-container" class="row">
+  					<canvas id="board" class="card shadow-sm" style="width: 45vh"></canvas> 
+  					<div id="stats-container" class="d-none d-md-flex">
+						<div class="row card shadow-sm" id="stats-panel-1">
+  							<div style="height: 20%"><h4><b>Next Piece</b></h4></div>
+  							<canvas id="next-box"></canvas>
+  						</div>
+  						<div class="row card shadow-sm" id="stats-panel-2">
+  							<div style="height: 33%">
+  								<h4><b>Level</b>
+  									<span class="stat-sm"><span>&nbsp;–&nbsp;&nbsp;</span><span>0</span></span>
+								</h4>
+								<h4 class="stat-lg">0</h4>
+  							</div>
+  							<div style="height: 33%">
+  								<h4><b>Lines</b>
+  									<span class="stat-sm"><span>&nbsp;–&nbsp;&nbsp;</span><span>0</span></span>
+								</h4>
+								<h4 class="stat-lg">0</h4>
+  							</div>
+  							<div style="height: 33%">
+  								<h4><b>Score</b>
+  									<span class="stat-sm"><span>&nbsp;–&nbsp;&nbsp;</span><span>1,000,000</span></span>
+								</h4>
+								<h4 class="stat-lg">1,000,000</h4>
+  							</div> 	
+  						</div>
+  						<div class="row card shadow-sm" id="stats-panel-3">
+  							<div style="height: 33%">
+  								<h4><b>Tetris Rate</b>
+  									<span class="stat-sm"><span>&nbsp;–&nbsp;&nbsp;</span><span>100</span>%</span>
+								</h4>
+								<h4 class="stat-lg">0</h4>
+  							</div>
+  							<div style="height: 33%">
+  								<h4><b>Drought</b>
+  									<span class="stat-sm"><span>&nbsp;–&nbsp;&nbsp;</span><span>0</span></span>
+								</h4>
+								<h4 class="stat-lg">0</h4>
+  							</div>
+  							<div style="height: 33%">
+  								<h4><b>Burn</b>
+  									<span class="stat-sm"><span>&nbsp;–&nbsp;&nbsp;</span><span>0</span></span>
+								</h4>
+								<h4 class="stat-lg">0</h4>
+  							</div> 					
+  						</div>
+  					</div>
+  				</div>
+
+
+				<div id="level-selection-container" class="row">
+					<div id="level-selection-card" class="card shadow-sm">
+						<div style="height: 25%">
+							<h1 class="display-4">Tetris</h1>
+						</div>
+						<div style="height: 25%">
+							<h2>Select initial level</h2>
+							<!-- <label for="level-range" class="form-label">Level</label> -->
+							<input type="range" class="form-range" min="0" max="19" id="level-range">							
+						</div>
+						<div style="height: 35%">
+							<b><h2 id="level-select-value"></h3></b>
+							<i><h4 id="drop-rate-desc"></h4></i>
+							<i><h4 id="lines-to-level-up"></h4></i>
+						</div>
+						<div style="height: 15%">
+							<button type="button" class="btn btn-primary" onclick="showGame();"><b>PLAY</b></button>
+						</div>
+					</div>
+				</div>					
+  			</div>
+
+  		</div>
+  	</div>
+
+
+	<script type="text/javascript" src="gravity.js"></script>
+  	<script type="text/javascript">
+
+  		var c = null;
+  		var ctx;
+  		window.onload = function () {
+			c=document.getElementById("board");
+		    ctx=c.getContext("2d");
+		    c.height = c.offsetHeight;
+			c.width = c.offsetWidth;
+		    draw();
+		    drawNextBox();
+
+		    const range = document.getElementById("level-range");
+		    onRangeChange(range, displayRangeValue);
+		    displayRangeValue();
+
+		    for (let i=0; i<20; i++) {
+		    	console.log(i + ": " + linesUntilLevelUp(i));
+		    }
+		}
+
+		window.onresize = function() {
+			if (c == null)
+				return;
+
+			if (c.height != c.offsetHeight) {
+				c.height = c.offsetHeight;
+				c.width = c.offsetWidth;
+				draw();
+				console.log("Resized...")
+			}
+		}
+
+		function draw() {
+			ctx.fillStyle = "#fff";
+			ctx.fillRect(0, 0, c.width, c.height)
+		    const radX = c.width/2;
+		    const radY = c.height/4;
+		    ctx.beginPath();
+		    ctx.arc(radX,radY,radX,0,2*Math.PI);
+		    ctx.stroke();
+		    ctx.beginPath();
+		    ctx.arc(radX,radY*3,radX,0,2*Math.PI);
+		    ctx.stroke();
+		}
+
+		function drawNextBox() {
+			const nextBox = document.getElementById("next-box");
+			const ctx2 = nextBox.getContext("2d");
+			ctx2.fillStyle = "#000";
+			ctx2.fillRect(0, 0, nextBox.width, nextBox.height);
+		}
+
+		function showGame() {
+			document.getElementById("game-container").style.display = "flex";
+			document.getElementById("level-selection-container").style.display = "none";
+		}
+
+		function showLevelSelect() {
+			document.getElementById("game-container").style.display = "none";
+			document.getElementById("level-selection-container").style.display = "flex";
+		}
+
+		function onRangeChange(r,f) {
+		  var n,c,m;
+		  r.addEventListener("input",function(e){n=1;c=e.target.value;if(c!=m)f(e);m=c;});
+		  r.addEventListener("change",function(e){if(!n)f(e);});
+		}
+
+		function displayRangeValue() {
+
+			const level = document.getElementById("level-range").value;
+
+			document.getElementById("level-select-value").innerHTML = "Level " + level;
+
+			const dropRate = new Gravity().withLevel(level).framesPerCell;
+			document.getElementById("drop-rate-desc").innerHTML 
+				= dropRate + " frames/drop";
+			document.getElementById("lines-to-level-up").innerHTML 
+				= linesUntilLevelUp(level) + " lines until level " + (Number(level) + 1);
+		}
+
+		function linesUntilLevelUp(initLevel) {
+			if (initLevel < 9)
+				return 10*initLevel + 10;
+			
+			if (initLevel < 16)
+				return 100;
+
+			return 10*initLevel - 50
+		}
+
+
+  	</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+  </body>
+</html>
