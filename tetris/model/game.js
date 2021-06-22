@@ -59,7 +59,7 @@ class Game {
 
 		return new GameState(
 			this.board.getState(),
-			this.board.getNextTetromino().toString(),
+			this.board.getNextTetromino().getState(),
 			this.level,
 			this.numLinesCleared);
 	}

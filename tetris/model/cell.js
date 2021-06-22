@@ -8,9 +8,9 @@ class Cell {
 		this.y = CELL_SIZE * VISIBLE_ROWS - CELL_SIZE * (row + 1);
 	}
 
-	occupy(tetrominoName) {
+	occupy(tetrominoLetter) {
 		this.isOccupied = true;
-		this.tetrominoName = tetrominoName;
+		this.tetrominoLetter = tetrominoLetter;
 	}
 
 	clear() {
@@ -19,7 +19,7 @@ class Cell {
 	}
 
 	toString() {
-		return this.isOccupied ? this.tetrominoName : " ";
+		return this.isOccupied ? this.tetrominoLetter : " ";
 	}
 
 }

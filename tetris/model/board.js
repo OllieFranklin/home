@@ -143,7 +143,7 @@ class Board {
 			const cellOffset = this.activeTetromino.orientation.cellOffsets[i];
 			const cell = this.cells[row + cellOffset.y][col + cellOffset.x];
 
-			cell.occupy(this.activeTetromino.toString());
+			cell.occupy(this.activeTetromino.getLetter());
 			cell.isActiveTetromino = true;
 		}
 

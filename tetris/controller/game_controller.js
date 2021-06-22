@@ -3,7 +3,8 @@
 class GameController {
 
     constructor() {
-        this.boardRenderer = new BoardRenderer();
+        this.boardView = new BoardView();
+        this.nextBoxView = new NextBoxView();
         this.keyStates = new KeyState(false, false, false, false, false);
 
         document.addEventListener("keydown", () => this.handleKeyPress(event, true));
@@ -14,22 +15,24 @@ class GameController {
         this.game = new Game(level);
 
         const me = this;
-        this.interval = setInterval(function () {
-            me.step();
-        }, 1000/60);
+        this.timer = setInterval(() => me.step(), 1000/60);
+
+        this.boardView.resize();
+        this.nextBoxView.resize();
 
         return this;
     }
 
     stopGame() {
-        if (this.interval !== undefined) {
-            clearInterval(this.interval);
+        if (this.timer !== undefined) {
+            clearInterval(this.timer);
         }
     }
 
     step() {
         const state = this.game.nextFrame(this.keyStates);
-        this.boardRenderer.draw(state);
+        this.boardView.draw(state);
+        this.nextBoxView.draw(state);
     }
 
     handleKeyPress(event, isPressed) {
