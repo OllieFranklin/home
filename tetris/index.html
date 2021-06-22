@@ -7,9 +7,31 @@
     <!-- Bootstrap 5.0.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
-	<link rel="stylesheet" href="view/style_index.css">
+	<link rel="stylesheet" href="view/index.css">
 
     <title>Tetris</title>
+
+    <!-- MODEL -->
+	<script defer type="text/javascript" src="model/game_state.js"></script>
+	<script defer type="text/javascript" src="model/point.js"></script>
+	<script defer type="text/javascript" src="model/gravity.js"></script>
+	<script defer type="text/javascript" src="model/orientation.js"></script>
+	<script defer type="text/javascript" src="model/move.js"></script>
+	<script defer type="text/javascript" src="model/autoshift.js"></script>
+	<script defer type="text/javascript" src="model/cell.js"></script>
+	<script defer type="text/javascript" src="model/board.js"></script>
+	<script defer type="text/javascript" src="model/tetromino.js"></script>
+	<script defer type="text/javascript" src="model/key_state.js"></script>
+	<script defer type="text/javascript" src="model/game.js"></script>
+
+	<!-- CONTROLLER -->
+	<script defer type="text/javascript" src="controller/game_controller.js"></script>
+	<script defer type="text/javascript" src="controller/webpage_controller.js"></script>
+	
+	<!-- VIEW -->
+	<script defer type="text/javascript" src="view/board_renderer.js"></script>
+	<script defer type="text/javascript" src="view/stats_renderer.js"></script>
+	<script defer type="text/javascript" src="view/index.js"></script>
 
   </head>
   <body>
@@ -89,7 +111,7 @@
 							<i><h4 id="lines-to-level-up"></h4></i>
 						</div>
 						<div style="height: 15%">
-							<button type="button" class="btn btn-primary" onclick="showGame();"><b>PLAY</b></button>
+							<button type="button" id="new-game-btn" class="btn btn-primary"><b>PLAY</b></button>
 						</div>
 					</div>
 				</div>					
@@ -106,95 +128,7 @@
 	<img src="view/textures/tetrominoes/default/T_Tetromino.png" id="T_Tetromino_default" class="texture">
 	<img src="view/textures/tetrominoes/default/Z_Tetromino.png" id="Z_Tetromino_default" class="texture">
 
-  	<script type="text/javascript">
-
-  		let c = null;
-  		let ctx, gameController;
-
-  		window.onload = function() {
-			c=document.getElementById("board");
-		    ctx=c.getContext("2d");
-
-		    const game = new Game(0);
-		    const boardRenderer = new BoardRenderer();
-		    gameController = new GameController(game, boardRenderer);
-
-		    // setInterval(gameController.step, 1000/60);
-
-		    resizeBoard();
-		    // const range = document.getElementById("level-range");
-		    // onRangeChange(range, displayRangeValue);
-		    // displayRangeValue();
-		}
-
-		function resizeBoard() {
-			console.log("Resized...")
-			if (c == null)
-				return;
-
-			if (c.height != c.offsetHeight) {
-				c.height = c.offsetHeight;
-				c.width = c.offsetWidth;
-			}
-		}
-
-		window.onresize = function() {
-			resizeBoard();	
-		}
-
-		function showGame() {
-			document.getElementById("game-container").style.display = "flex";
-			document.getElementById("level-selection-container").style.display = "none";
-		}
-
-		function showLevelSelect() {
-			document.getElementById("game-container").style.display = "none";
-			document.getElementById("level-selection-container").style.display = "flex";
-		}
-
-		function onRangeChange(r,f) {
-		  var n,c,m;
-		  r.addEventListener("input",function(e){n=1;c=e.target.value;if(c!=m)f(e);m=c;});
-		  r.addEventListener("change",function(e){if(!n)f(e);});
-		}
-
-		function displayRangeValue() {
-
-			const level = document.getElementById("level-range").value;
-
-			document.getElementById("level-select-value").innerHTML = "Level " + level;
-
-			const dropRate = new Gravity().withLevel(level).framesPerCell;
-			document.getElementById("drop-rate-desc").innerHTML 
-				= dropRate + " frames/drop";
-			document.getElementById("lines-to-level-up").innerHTML 
-				= linesUntilLevelUp(level) + " lines until level " + (Number(level) + 1);
-		}
-
-  	</script>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-
-	<!-- MODEL -->
-    <script type="text/javascript" src="model/_shared.js"></script>
-	<script type="text/javascript" src="model/game_state.js"></script>
-	<script type="text/javascript" src="model/point.js"></script>
-	<script type="text/javascript" src="model/gravity.js"></script>
-	<script type="text/javascript" src="model/orientation.js"></script>
-	<script type="text/javascript" src="model/move.js"></script>
-	<script type="text/javascript" src="model/autoshift.js"></script>
-	<script type="text/javascript" src="model/cell.js"></script>
-	<script type="text/javascript" src="model/board.js"></script>
-	<script type="text/javascript" src="model/tetromino.js"></script>
-	<script type="text/javascript" src="model/game.js"></script>
-
-	<!-- VIEW -->
-	<script type="text/javascript" src="view/board_renderer.js"></script>
-	<script type="text/javascript" src="view/stats_renderer.js"></script>
-
-	<!-- CONTROLLER -->
-	<script type="text/javascript" src="controller/game_controller.js"></script>
-	<script type="text/javascript" src="controller/webpage_controller.js"></script>
 
   </body>
 </html>

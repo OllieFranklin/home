@@ -1,3 +1,22 @@
+const ROWS = 22;
+const VISIBLE_ROWS = 20;
+const COLS = 10;
+const CELL_SIZE = 30;
+const TETROMINO_INIT_ROW = 19;
+const TETROMINO_INIT_COL = 5;
+
+const TETROMINO_TYPES = [
+	"I_Tetromino",
+	"J_Tetromino",
+	"L_Tetromino",
+	"O_Tetromino",
+	"S_Tetromino",
+	"T_Tetromino",
+	"Z_Tetromino"
+];
+
+let FRAME_NUM = 1;
+
 class Game {
 
 	constructor(initialLevel) {
@@ -7,13 +26,7 @@ class Game {
 		this.gravity = new Gravity().withLevel(initialLevel);
     	this.softDrop = new Gravity().withSpeed(2);
 
-		this.keysPressed = {
-			DOWN: false,
-			LEFT: false,
-			RIGHT: false,
-			ROTATE_CW: false,
-			ROTATE_ACW: false
-		}
+		this.keyStates = new KeyState(false, false, false, false, false);
 
 		this.States = {
 			ARE: "ARE",
@@ -35,20 +48,12 @@ class Game {
 	 *
 	 * Returns a GameState object representing the current state of the game.
 	 */
-	nextFrame(up, left, right, rotateCW, rotateACW) {
-
-		const inputs = {
-			DOWN: up,
-			LEFT: left,
-			RIGHT: right,
-			ROTATE_CW: rotateCW,
-			ROTATE_ACW: rotateACW
-		}
+	nextFrame(inputs) {
 		
 		this.handleKeysPressed(inputs);
 		this.handleKeysReleased(inputs);
 
-		this.keysPressed = inputs;
+		this.keyStates = inputs.copy();
 
 		this.doFrame();
 
@@ -56,20 +61,20 @@ class Game {
 			this.board.getState(),
 			"idk",
 			this.level,
-			this.numLinesCleared
-			);
+			this.numLinesCleared);
 	}
 
 	handleKeysPressed(inputs) {
 
-		const downPressed = !this.keysPressed.DOWN && inputs.DOWN;
-		const leftPressed = !this.keysPressed.LEFT && inputs.LEFT;
-		const rightPressed = !this.keysPressed.RIGHT && inputs.RIGHT;
-		const rotateCWPressed = !this.keysPressed.ROTATE_CW && inputs.ROTATE_CW;
-		const rotateACWPressed = !this.keysPressed.ROTATE_ACW && inputs.ROTATE_ACW;
+		const downPressed = !this.keyStates.down && inputs.down;
+		const leftPressed = !this.keyStates.left && inputs.left;
+		const rightPressed = !this.keyStates.right && inputs.right;
+		const rotateCWPressed = !this.keyStates.rotateCW && inputs.rotateCW;
+		const rotateACWPressed = !this.keyStates.rotateACW && inputs.rotateACW;
 
 		if (leftPressed) {
-			if (inputs.RIGHT) {
+			console.log("80: left was pressed in game");
+			if (inputs.right) {
 				this.DAS.disable();
 			} else {
 				this.moves.push(new MoveLeft());
@@ -78,7 +83,7 @@ class Game {
 		}
 
 		if (rightPressed) {
-			if (inputs.LEFT) {
+			if (inputs.left) {
 				this.DAS.disable();
 			} else {
 				this.moves.push(new MoveRight());
@@ -103,15 +108,15 @@ class Game {
 
 	handleKeysReleased(inputs) {
 
-		const downReleased = this.keysPressed.DOWN && !inputs.DOWN;
-		const leftReleased = this.keysPressed.LEFT && !inputs.LEFT;
-		const rightReleased = this.keysPressed.RIGHT && !inputs.RIGHT;
-		const rotateCWReleased = this.keysPressed.ROTATE_CW && !inputs.ROTATE_CW;
-		const rotateACWReleased = this.keysPressed.ROTATE_ACW && !inputs.ROTATE_ACW;
+		const downReleased = this.keyStates.down && !inputs.down;
+		const leftReleased = this.keyStates.left && !inputs.left;
+		const rightReleased = this.keyStates.right && !inputs.right;
+		const rotateCWReleased = this.keyStates.rotateCW && !inputs.rotateCW;
+		const rotateACWReleased = this.keyStates.rotateACW && !inputs.rotateACW;
 
 		if (leftReleased) {
 			this.DAS.disable();
-			if (inputs.RIGHT) {
+			if (inputs.right) {
                 this.moves.push(new MoveRight());
                 this.DAS.startMovingRight();
             }
@@ -119,7 +124,7 @@ class Game {
 
 		if (rightReleased) {
 			this.DAS.disable();
-			if (inputs.LEFT) {
+			if (inputs.left) {
                 this.moves.push(new MoveLeft());
                 this.DAS.startMovingLeft();
             }
@@ -132,7 +137,7 @@ class Game {
 		FRAME_NUM++;
 
 		if (this.gameState == this.States.LINE_CLEAR) {
-			doLineClear();
+			this.doLineClear();
 		} else if (this.gameState == this.States.ARE) {
 			
 			if (this.entryDelay > 1) {
@@ -143,7 +148,7 @@ class Game {
 			}
 		} else {
 
-			if (this.gravity.isDropping() || this.keysPressed.DOWN && this.softDrop.isDropping()) {
+			if (this.gravity.isDropping() || this.keyStates.down && this.softDrop.isDropping()) {
         		this.moves.push(new MoveDown());
 			}
 
@@ -191,7 +196,7 @@ class Game {
 	}
 
 	onLockDown() {
-		this.keysPressed.DOWN = false;
+		this.keyStates.down = false;
 		this.board.pieceLock();
 		if (this.board.findLinesToClear()) {
 			this.gameState = this.States.LINE_CLEAR;
