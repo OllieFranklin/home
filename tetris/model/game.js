@@ -59,7 +59,7 @@ class Game {
 
 		return new GameState(
 			this.board.getState(),
-			"idk",
+			this.board.getNextTetromino().toString(),
 			this.level,
 			this.numLinesCleared);
 	}
@@ -73,7 +73,6 @@ class Game {
 		const rotateACWPressed = !this.keyStates.rotateACW && inputs.rotateACW;
 
 		if (leftPressed) {
-			console.log("80: left was pressed in game");
 			if (inputs.right) {
 				this.DAS.disable();
 			} else {

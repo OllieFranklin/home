@@ -3,8 +3,8 @@ class Board {
 	constructor() {
 
 		this.cells = new Array(ROWS);
-		this.nextActiveTetromino = null;
 		this.activeTetromino = null;
+		this.nextTetromino = null;
 
 		this.newActiveTetromino();
 
@@ -92,11 +92,11 @@ class Board {
 
 	newActiveTetromino() {	
 
-		this.activeTetromino = this.nextActiveTetromino;
+		this.activeTetromino = this.nextTetromino;
 
 		const randomIndex = Math.floor(Math.random() * TETROMINO_TYPES.length);
 		const tetrominoClass = eval(TETROMINO_TYPES[randomIndex]);
-		this.nextActiveTetromino = new tetrominoClass();
+		this.nextTetromino = new tetrominoClass();
 
 		if (this.activeTetromino == null)
 			return false;
@@ -163,6 +163,10 @@ class Board {
 
 	getActiveTetromino() {
 		return this.activeTetromino;
+	}
+
+	getNextTetromino() {
+		return this.nextTetromino;
 	}
 
 	getNumLinesCleared() {

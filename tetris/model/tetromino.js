@@ -11,7 +11,6 @@ class Tetromino {
 		this.orientation = this.orientations[this.orientationIndex];
 		this.row = TETROMINO_INIT_ROW;
 		this.col = TETROMINO_INIT_COL;
-		this.texture = document.getElementById(this.constructor.name + "_default");
 	}
 
     initOrientations() {
