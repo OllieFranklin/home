@@ -39,7 +39,7 @@ class Game {
 
 		this.initialLevel = initialLevel;
 		this.level = initialLevel;
-		this.linesBeforeFirstLevelUp = this.getLinesUntilFirstLevelUp(initialLevel); 
+		this.linesBeforeFirstLevelUp = Game.getLinesUntilFirstLevelUp(initialLevel); 
 		this.numLinesCleared = 0;
 	}
 
@@ -217,7 +217,7 @@ class Game {
 		console.log("You are now on level " + this.level);
 	}
 
-	getLinesUntilFirstLevelUp(initLevel) {
+	static getLinesUntilFirstLevelUp(initLevel) {
 		if (initLevel < 9)
 			return 10*initLevel + 10;
 		

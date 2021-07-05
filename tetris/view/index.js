@@ -1,20 +1,15 @@
-// main javascript file
-
-// const c = document.getElementById("board");;
-// const ctx = c.getContext("2d");
-let gameController;
-
 document.querySelector("#new-game-btn").addEventListener("click", newGame);
+addRangeChangeListener(document.querySelector("#level-range"), displayRangeValue);
 
-// const range = document.getElementById("level-range");
-// onRangeChange(range, displayRangeValue);
-// displayRangeValue();
+displayRangeValue();
 
 function newGame() {
 	document.querySelector("#game-container").style.display = "flex";
 	document.querySelector("#level-selection-container").style.display = "none";
 	
-	gameController = new GameController().startGame(0);
+	const level = document.querySelector("#level-range").value;
+
+	const gameController = new GameController().startGame(level);
 }
 
 function showLevelSelect() {
@@ -22,7 +17,7 @@ function showLevelSelect() {
 	document.querySelector("#level-selection-container").style.display = "flex";
 }
 
-function onRangeChange(r,f) {
+function addRangeChangeListener(r,f) {
   var n,c,m;
   r.addEventListener("input",function(e){n=1;c=e.target.value;if(c!=m)f(e);m=c;});
   r.addEventListener("change",function(e){if(!n)f(e);});
@@ -37,5 +32,5 @@ function displayRangeValue() {
 	const dropRate = new Gravity().withLevel(level).framesPerCell;
 	document.querySelector("#drop-rate-desc").innerHTML = dropRate + " frames/drop";
 	document.querySelector("#lines-to-level-up").innerHTML 
-		= linesUntilLevelUp(level) + " lines until level " + (Number(level) + 1);
+		= Game.getLinesUntilFirstLevelUp(level) + " lines until level " + (Number(level) + 1);
 }
