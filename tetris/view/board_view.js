@@ -1,22 +1,20 @@
-const textureMap = getTextureMap();
+window.addEventListener("resize", () => BoardView.resize());
 
 class BoardView {
 
-	constructor() {
-		this.canvas = document.querySelector("#board");
-		this.ctx = this.canvas.getContext("2d");
+	static textureMap = BoardView.getTextureMap();
+	static canvas = document.querySelector("#board");
+	static ctx = BoardView.canvas.getContext("2d");
+	static cellSize = 0;
 
-		window.addEventListener("resize", () => this.resize());
-	}
-
-	resize() {
+	static resize() {
 		if (this.canvas.height != this.canvas.offsetHeight) {
 			this.canvas.height = this.canvas.offsetHeight;
 			this.canvas.width = this.canvas.offsetWidth;
 		}
 	}
 
-	draw(gameState) {
+	static draw(gameState) {
 
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
@@ -25,35 +23,34 @@ class BoardView {
 		const rows = boardState.length;
 		const cols = boardState[0].length;
 
-		const cellWidth = this.canvas.width / cols;
-		const cellHeight = this.canvas.height / rows;
+		this.cellSize = this.canvas.width / cols;
 
 		for (let row = 0; row < rows; row++) {
 			
-			const y = row * cellHeight;
+			const y = row * this.cellSize;
 
 		    for (let col = 0; col < cols; col++) {
 
-		    	const x = col * cellWidth; 
+		    	const x = col * this.cellSize; 
 
 		    	const str = boardState[row][col]
-		    	if (textureMap.has(str)) {
-		    		this.ctx.drawImage(textureMap.get(str), x, y, cellWidth, cellHeight);
+		    	if (this.textureMap.has(str)) {
+		    		this.ctx.drawImage(this.textureMap.get(str), x, y, this.cellSize, this.cellSize);
 		    	}
 		    }
 		}
 
 	}
 
-}
+	static getTextureMap() {
+		const output = new Map();
+		const tetriminoTypes = ["I", "J", "L", "O", "S", "T", "Z"];
+		for (let i = 0; i < tetriminoTypes.length; i++) {
+			const texture = document.getElementById(tetriminoTypes[i] + "_Tetromino_default");
+			output.set(tetriminoTypes[i], texture);
+		}
 
-function getTextureMap() {
-	const output = new Map();
-	const tetriminoTypes = ["I", "J", "L", "O", "S", "T", "Z"];
-	for (let i = 0; i < tetriminoTypes.length; i++) {
-		const texture = document.getElementById(tetriminoTypes[i] + "_Tetromino_default");
-		output.set(tetriminoTypes[i], texture);
+		return output;
 	}
 
-	return output;
 }

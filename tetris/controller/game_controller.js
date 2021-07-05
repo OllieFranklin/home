@@ -3,8 +3,6 @@
 class GameController {
 
     constructor() {
-        this.boardView = new BoardView();
-        this.nextBoxView = new NextBoxView();
         this.keyStates = new KeyState(false, false, false, false, false);
 
         document.addEventListener("keydown", () => this.handleKeyPress(event, true));
@@ -17,8 +15,8 @@ class GameController {
         const me = this;
         this.timer = setInterval(() => me.step(), 1000/60);
 
-        this.boardView.resize();
-        this.nextBoxView.resize();
+        BoardView.resize();
+        NextBoxView.resize();
 
         return this;
     }
@@ -31,8 +29,8 @@ class GameController {
 
     step() {
         const state = this.game.nextFrame(this.keyStates);
-        this.boardView.draw(state);
-        this.nextBoxView.draw(state);
+        BoardView.draw(state);
+        NextBoxView.draw(state);
     }
 
     handleKeyPress(event, isPressed) {
