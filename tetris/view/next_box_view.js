@@ -33,8 +33,8 @@ class NextBoxView {
 		    	const x = left + col * BoardView.cellSize; 
 
 		    	const str = tetromino[row][col]
-		    	if (BoardView.textureMap.has(str)) {
-		    		const texture = BoardView.textureMap.get(str);
+		    	if (Textures.hasTexture(str)) {
+		    		const texture = Textures.getTexture(str);
 		    		this.ctx.drawImage(texture, x, y, BoardView.cellSize, BoardView.cellSize);
 		    	}
 		    }

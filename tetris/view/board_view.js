@@ -2,7 +2,6 @@ window.addEventListener("resize", () => BoardView.resize());
 
 class BoardView {
 
-	static textureMap = BoardView.getTextureMap();
 	static canvas = document.querySelector("#board");
 	static ctx = BoardView.canvas.getContext("2d");
 	static cellSize = 0;
@@ -34,23 +33,12 @@ class BoardView {
 		    	const x = col * this.cellSize; 
 
 		    	const str = boardState[row][col]
-		    	if (this.textureMap.has(str)) {
-		    		this.ctx.drawImage(this.textureMap.get(str), x, y, this.cellSize, this.cellSize);
+		    	if (Textures.hasTexture(str)) {
+		    		this.ctx.drawImage(Textures.getTexture(str), x, y, this.cellSize, this.cellSize);
 		    	}
 		    }
 		}
 
-	}
-
-	static getTextureMap() {
-		const output = new Map();
-		const tetriminoTypes = ["I", "J", "L", "O", "S", "T", "Z"];
-		for (let i = 0; i < tetriminoTypes.length; i++) {
-			const texture = document.getElementById(tetriminoTypes[i] + "_Tetromino_default");
-			output.set(tetriminoTypes[i], texture);
-		}
-
-		return output;
 	}
 
 }
