@@ -39,7 +39,7 @@ class Game {
 
 		this.initialLevel = initialLevel;
 		this.level = initialLevel;
-		this.linesBeforeFirstLevelUp = Game.getLinesUntilFirstLevelUp(initialLevel); 
+		this.linesBeforeFirstLevelUp = Game.getLinesUntilFirstLevelUp(initialLevel);
 		this.numLinesCleared = 0;
 	}
 
@@ -61,7 +61,11 @@ class Game {
 			this.board.getState(),
 			this.board.getNextTetromino().getState(),
 			this.level,
-			this.numLinesCleared);
+			this.numLinesCleared,
+			0,
+			0,
+			0,
+			0);
 	}
 
 	handleKeysPressed(inputs) {
@@ -107,11 +111,11 @@ class Game {
 
 	handleKeysReleased(inputs) {
 
-		const downReleased = this.keyStates.down && !inputs.down;
+		// const downReleased = this.keyStates.down && !inputs.down;
 		const leftReleased = this.keyStates.left && !inputs.left;
 		const rightReleased = this.keyStates.right && !inputs.right;
-		const rotateCWReleased = this.keyStates.rotateCW && !inputs.rotateCW;
-		const rotateACWReleased = this.keyStates.rotateACW && !inputs.rotateACW;
+		// const rotateCWReleased = this.keyStates.rotateCW && !inputs.rotateCW;
+		// const rotateACWReleased = this.keyStates.rotateACW && !inputs.rotateACW;
 
 		if (leftReleased) {
 			this.DAS.disable();

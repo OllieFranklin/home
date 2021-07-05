@@ -31,6 +31,7 @@ class GameController {
         const state = this.game.nextFrame(this.keyStates);
         BoardView.draw(state);
         NextBoxView.draw(state);
+        StatsView.draw(state);
     }
 
     handleKeyPress(event, isPressed) {

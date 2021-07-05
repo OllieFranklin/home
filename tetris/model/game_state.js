@@ -1,6 +1,6 @@
 class GameState {
 
-	constructor(board, nextPiece, level, lines) {
+	constructor(board, nextPiece, level, lines, score, tetrisRate, drought, burn) {
 		/**
 		 * String[][], where each string is the letter
 		 * corresponding to a tetromino shape (e.g. "T", "L", etc.).
@@ -18,6 +18,14 @@ class GameState {
 		this.level = level;
 
 		this.lines = lines;
+
+		this.score = score;
+
+		this.tetrisRate = tetrisRate;
+
+		this.drought = drought;
+
+		this.burn = burn;
 	}
 
 }
