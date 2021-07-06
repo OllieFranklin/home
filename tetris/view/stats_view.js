@@ -7,13 +7,30 @@ class StatsView {
 	static droughtElements = document.querySelectorAll(".drought-stat");
 	static burnElements = document.querySelectorAll(".burn-stat");
 
+	static prevGameState = new GameState(null, null, null, null, null, null, null, null);
+
 	static draw(gameState) {
-		this.levelElements.forEach((e) => e.innerHTML = gameState.level);
-		this.linesElements.forEach((e) => e.innerHTML = gameState.lines);
-		this.scoreElements.forEach((e) => e.innerHTML = gameState.score);
-		this.tetrisRateElements.forEach((e) => e.innerHTML = gameState.tetrisRate);
-		this.droughtElements.forEach((e) => e.innerHTML = gameState.drought);
-		this.burnElements.forEach((e) => e.innerHTML = gameState.burn);
+
+		if (gameState.level !== this.prevGameState.level) {
+			this.levelElements.forEach((e) => e.innerHTML = gameState.level);
+		}
+		if (gameState.lines !== this.prevGameState.lines) {
+			this.linesElements.forEach((e) => e.innerHTML = gameState.lines);
+		}
+		if (gameState.score !== this.prevGameState.score) {
+			this.scoreElements.forEach((e) => e.innerHTML = gameState.score);
+		}
+		if (gameState.tetrisRate !== this.prevGameState.tetrisRate) {
+			this.tetrisRateElements.forEach((e) => e.innerHTML = gameState.tetrisRate);
+		}
+		if (gameState.drought !== this.prevGameState.drought) {
+			this.droughtElements.forEach((e) => e.innerHTML = gameState.drought);
+		}
+		if (gameState.burn !== this.prevGameState.burn) {
+			this.burnElements.forEach((e) => e.innerHTML = gameState.burn);
+		}
+		
+		this.prevGameState = gameState;
 	}
 
 }
