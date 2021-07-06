@@ -51,7 +51,7 @@ class Board {
 	        }
 		}
 
-		return this.linesToClear.length > 0;
+		return this.linesToClear.length;
 	}
 
 	clearLines(columnIndex) {

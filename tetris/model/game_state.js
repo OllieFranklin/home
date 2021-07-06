@@ -12,6 +12,8 @@ class GameState {
 		 * Takes the same format as this.board, representing the shape of
 		 * a tetromino in its initial orientation (will be either a 3x2 or 
 		 * 4x1 String[][])
+		 * e.g. [ ["L", "L", "L"],
+		 *        ["L", " ", " "] ] 
 		 */
 		this.nextPiece = nextPiece;
 

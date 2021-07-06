@@ -19,6 +19,15 @@ let FRAME_NUM = 1;
 
 class Game {
 
+	static State = {
+		ARE: "ARE",
+		PLAYING: "PLAYING",
+		LINE_CLEAR: "LINE_CLEAR",
+		GAME_OVER: "GAME_OVER"
+	}
+
+	static pointsPerLine = Game.initPointsPerLine();
+
 	constructor(initialLevel) {
 		this.moves = [];
 		this.DAS = new AutoShift();
@@ -27,20 +36,15 @@ class Game {
     	this.softDrop = new Gravity().withSpeed(2);
 
 		this.keyStates = new KeyState(false, false, false, false, false);
-
-		this.States = {
-			ARE: "ARE",
-			PLAYING: "PLAYING",
-			LINE_CLEAR: "LINE_CLEAR",
-			GAME_OVER: "GAME_OVER"
-		}
-		this.gameState = this.States.ARE;
+		
+		this.gameState = Game.State.ARE;
 		this.lineClearAnimationFrame = 0;
 
 		this.initialLevel = initialLevel;
-		this.level = initialLevel;
+		this.level = Number(initialLevel);
 		this.linesBeforeFirstLevelUp = Game.getLinesUntilFirstLevelUp(initialLevel);
-		this.numLinesCleared = 0;
+		this.totalLinesCleared = 0;
+		this.score = 0;
 	}
 
 	/**
@@ -61,8 +65,8 @@ class Game {
 			this.board.getState(),
 			this.board.getNextTetromino().getState(),
 			this.level,
-			this.numLinesCleared,
-			0,
+			this.totalLinesCleared,
+			this.score,
 			0,
 			0,
 			0);
@@ -139,15 +143,15 @@ class Game {
 
 		FRAME_NUM++;
 
-		if (this.gameState == this.States.LINE_CLEAR) {
-			this.doLineClear();
-		} else if (this.gameState == this.States.ARE) {
+		if (this.gameState == Game.State.LINE_CLEAR) {
+			this.doLineClearFrame();
+		} else if (this.gameState == Game.State.ARE) {
 			
 			if (this.entryDelay > 1) {
 				this.entryDelay--;
 			} else {
 				const canPlaceTetromino = this.board.newActiveTetromino(); 
-				this.gameState = canPlaceTetromino ? this.States.PLAYING : this.States.GAME_OVER;
+				this.gameState = canPlaceTetromino ? Game.State.PLAYING : Game.State.GAME_OVER;
 			}
 		} else {
 
@@ -170,7 +174,7 @@ class Game {
 		}       
     }
 
-    doLineClear() {
+    doLineClearFrame() {
 
 		if (this.lineClearAnimationFrame < 20) {
 
@@ -183,17 +187,17 @@ class Game {
 		} else {
 			this.board.moveLinesDown();
 			
-			const tensBefore = Math.floor(this.numLinesCleared/10);
-			this.numLinesCleared += this.board.getNumLinesCleared();
-			const tensAfter = Math.floor(this.numLinesCleared/10);
+			const tensBefore = Math.floor(this.totalLinesCleared/10);
+			this.totalLinesCleared += this.board.getNumLinesCleared();
+			const tensAfter = Math.floor(this.totalLinesCleared/10);
 
 			if (this.level != this.initialLevel && tensBefore != tensAfter)
 				this.levelUp();
 
-			if (this.level == this.initialLevel && this.numLinesCleared >= this.linesBeforeFirstLevelUp)
+			if (this.level == this.initialLevel && this.totalLinesCleared >= this.linesBeforeFirstLevelUp)
 				this.levelUp();
 
-			this.gameState = this.States.ARE;
+			this.gameState = Game.State.ARE;
 		}
 			
 	}
@@ -201,14 +205,26 @@ class Game {
 	onLockDown() {
 		this.keyStates.down = false;
 		this.board.pieceLock();
-		if (this.board.findLinesToClear()) {
-			this.gameState = this.States.LINE_CLEAR;
+
+		const numLinesToClear = this.board.findLinesToClear();
+
+		if (numLinesToClear > 0) {
+			this.gameState = Game.State.LINE_CLEAR;
 			this.lineClearAnimationFrame = 0;
+
+			this.incrementScore(numLinesToClear);
 		} else {
 			const activeTetrominoRow = this.board.getActiveTetromino().getRow();
 			this.entryDelay = this.getEntryDelay(activeTetrominoRow);
-			this.gameState = this.States.ARE;
+			this.gameState = Game.State.ARE;
 		}
+	}
+
+	incrementScore(numLinesCleared) {
+
+		const pointsPerLine = Game.pointsPerLine.get(numLinesCleared);
+
+		this.score += pointsPerLine * (this.level + 1);
 	}
 
 	getEntryDelay(activeTetrominoRow) {
@@ -218,21 +234,31 @@ class Game {
 	levelUp() {
 		this.level++;
 		this.gravity = new Gravity().withLevel(this.level);
-		console.log("You are now on level " + this.level);
 	}
 
 	static getLinesUntilFirstLevelUp(initLevel) {
 		if (initLevel < 9)
-			return 10*initLevel + 10;
+			return 10 * initLevel + 10;
 		
 		if (initLevel < 16)
 			return 100;
 
-		return 10*initLevel - 50
+		return 10 * initLevel - 50
+	}
+
+	static initPointsPerLine() {
+		const output = new Map();
+
+		output.set(1, 40);
+		output.set(2, 100);
+		output.set(3, 300);
+		output.set(4, 1200);
+
+		return output;
 	}
 
 	isLost() {
-		return this.gameState == this.States.GAME_OVER;
+		return this.gameState == Game.State.GAME_OVER;
 	}
 
 }
