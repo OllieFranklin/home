@@ -95,11 +95,12 @@ class Board {
 		this.activeTetromino = this.nextTetromino;
 
 		const randomIndex = Math.floor(Math.random() * TETROMINO_TYPES.length);
-		const tetrominoClass = eval(TETROMINO_TYPES[randomIndex]);
-		this.nextTetromino = new tetrominoClass();
+		const TetrominoClass = eval(TETROMINO_TYPES[randomIndex]);
+		this.nextTetromino = new TetrominoClass();
 
-		if (this.activeTetromino == null)
+		if (this.activeTetromino == null) {
 			return false;
+		}
 		
 		if (this.canPlaceActiveTetromino(TETROMINO_INIT_ROW, TETROMINO_INIT_COL)) {
 			this.placeActiveTetromino(TETROMINO_INIT_ROW, TETROMINO_INIT_COL);
