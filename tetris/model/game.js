@@ -47,6 +47,8 @@ class Game {
 		this.score = 0;
 		this.linesClearedThroughTetris = 0;
 		this.tetrisRate = 0;
+		this.drought = 0;
+		this.burn = 0;
 	}
 
 	/**
@@ -71,8 +73,8 @@ class Game {
 			this.totalLinesCleared,
 			this.score,
 			this.tetrisRate,
-			0,
-			0);
+			this.drought,
+			this.burn);
 	}
 
 	handleKeysPressed(inputs) {
@@ -152,8 +154,15 @@ class Game {
 			if (this.entryDelay > 1) {
 				this.entryDelay--;
 			} else {
-				const canPlaceTetromino = this.board.newActiveTetromino(); 
+				const canPlaceTetromino = this.board.newActiveTetromino();
 				this.state = canPlaceTetromino ? Game.State.PLAYING : Game.State.GAME_OVER;
+
+				// update drought counter
+				if (this.board.getNextTetromino() instanceof I_Tetromino) {
+					this.drought = 0;
+				} else {
+					this.drought++;
+				}
 			}
 		} else if (this.state == Game.State.PLAYING) {
 
@@ -204,9 +213,12 @@ class Game {
 				this.levelUp();
 			}
 
-			// re-calculate tetris rate
+			// re-calculate tetris rate and update burn counter
 			if (numLinesCleared == 4) {
 				this.linesClearedThroughTetris += 4;
+				this.burn = 0;
+			} else {
+				this.burn += numLinesCleared;
 			}
 			this.tetrisRate = Math.round(100 * this.linesClearedThroughTetris / this.totalLinesCleared);
 

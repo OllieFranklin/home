@@ -31,7 +31,6 @@ class GameController {
         const state = this.game.nextFrame(this.keyStates);
 
         if (state.isGameOver) {
-            console.log("Yes the controller knows what's up");
         }
 
         BoardView.draw(state);
