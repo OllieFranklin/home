@@ -2,23 +2,21 @@
 // reads outputs, and provides them to the view
 class GameController {
 
-    constructor() {
+    constructor(level) {
+        this.game = new Game(level);
+
         this.keyStates = new KeyState(false, false, false, false, false);
 
         document.addEventListener("keydown", () => this.handleKeyPress(event, true));
         document.addEventListener("keyup", () => this.handleKeyPress(event, false));
     }
 
-    startGame(level) {
-        this.game = new Game(level);
-
+    startGame() {
         const me = this;
         this.timer = setInterval(() => me.step(), 1000/60);
 
         BoardView.resize();
         NextBoxView.resize();
-
-        return this;
     }
 
     stopGame() {
@@ -31,6 +29,8 @@ class GameController {
         const state = this.game.nextFrame(this.keyStates);
 
         if (state.isGameOver) {
+            this.stopGame();
+            WebpageController.gameOver();
         }
 
         BoardView.draw(state);
