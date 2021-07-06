@@ -45,6 +45,8 @@ class Game {
 		this.linesBeforeFirstLevelUp = Game.getLinesUntilFirstLevelUp(initialLevel);
 		this.totalLinesCleared = 0;
 		this.score = 0;
+		this.linesClearedThroughTetris = 0;
+		this.tetrisRate = 0;
 	}
 
 	/**
@@ -60,14 +62,15 @@ class Game {
 		this.keyStates = inputs.copy();
 
 		this.doFrame();
-		
+
 		return new GameState(
+			this.state == Game.State.GAME_OVER,
 			this.board.getState(),
 			this.board.getNextTetromino().getState(),
 			this.level,
 			this.totalLinesCleared,
 			this.score,
-			0,
+			this.tetrisRate,
 			0,
 			0);
 	}
@@ -185,16 +188,27 @@ class Game {
 			this.lineClearAnimationFrame++;
 		} else {
 			this.board.moveLinesDown();
-			
+
+			const numLinesCleared = this.board.getNumLinesCleared();
+
 			const tensBefore = Math.floor(this.totalLinesCleared/10);
-			this.totalLinesCleared += this.board.getNumLinesCleared();
+			this.totalLinesCleared += numLinesCleared;
 			const tensAfter = Math.floor(this.totalLinesCleared/10);
 
-			if (this.level != this.initialLevel && tensBefore != tensAfter)
+			// level up if reached initial threshold 
+			// or past initial threshold and another 10 lines were cleared
+			const isInitLevel = this.level == this.initialLevel;
+			if (!isInitLevel && tensBefore != tensAfter) {
 				this.levelUp();
+			} else if (isInitLevel && this.totalLinesCleared >= this.linesBeforeFirstLevelUp) {
+				this.levelUp();
+			}
 
-			if (this.level == this.initialLevel && this.totalLinesCleared >= this.linesBeforeFirstLevelUp)
-				this.levelUp();
+			// re-calculate tetris rate
+			if (numLinesCleared == 4) {
+				this.linesClearedThroughTetris += 4;
+			}
+			this.tetrisRate = Math.round(100 * this.linesClearedThroughTetris / this.totalLinesCleared);
 
 			this.state = Game.State.ARE;
 		}
@@ -214,7 +228,7 @@ class Game {
 			this.incrementScore(numLinesToClear);
 		} else {
 			const activeTetrominoRow = this.board.getActiveTetromino().getRow();
-			this.entryDelay = this.getEntryDelay(activeTetrominoRow);
+			this.entryDelay = Game.getEntryDelay(activeTetrominoRow);
 			this.state = Game.State.ARE;
 		}
 	}
@@ -223,13 +237,13 @@ class Game {
 		this.score += Game.pointsPerLine.get(numLinesCleared) * (this.level + 1);
 	}
 
-	getEntryDelay(activeTetrominoRow) {
-		return 10 + Math.floor((Math.min(activeTetrominoRow, 17) + 2) / 4) * 2;
-	}
-
 	levelUp() {
 		this.level++;
 		this.gravity = new Gravity().withLevel(this.level);
+	}
+
+	static getEntryDelay(activeTetrominoRow) {
+		return 10 + Math.floor((Math.min(activeTetrominoRow, 17) + 2) / 4) * 2;
 	}
 
 	static getLinesUntilFirstLevelUp(initLevel) {
@@ -251,10 +265,6 @@ class Game {
 		output.set(4, 1200);
 
 		return output;
-	}
-
-	isLost() {
-		return this.state == Game.State.GAME_OVER;
 	}
 
 }

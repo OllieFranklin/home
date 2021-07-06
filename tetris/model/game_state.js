@@ -1,6 +1,9 @@
 class GameState {
 
-	constructor(board, nextPiece, level, lines, score, tetrisRate, drought, burn) {
+	constructor(isGameOver, board, nextPiece, level, lines, score, tetrisRate, drought, burn) {
+
+		this.isGameOver = isGameOver;
+		
 		/**
 		 * String[][], where each string is the letter
 		 * corresponding to a tetromino shape (e.g. "T", "L", etc.).
