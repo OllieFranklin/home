@@ -14,24 +14,24 @@
   
   <body>
 
-  	<div id="page" class="container-fluid">
+  	<div id="page" class="container-fluid vh-100">
 	    
-  		<div class="row vh-100">
+  		<div class="row h-100">
 
-  			<div id="navigation" class="col-1 col-lg-2 card">
+  			<div id="navigation" class="col-1 col-lg-2 my-card h-100">
   				<a href="javascript:showLevelSelect()">Show level select</a>
   				<a href="javascript:showGame()">Show game</a>
   			</div>
 
-  			<div class="col-11 col-lg-10 align-items-center" id="main-container">
+  			<div class="col-11 col-lg-10 align-items-center h-100" id="main-container">
   				<div id="game-container" class="row">
-  					<canvas id="board" class="card shadow-sm" style="width: 45vh"></canvas> 
+  					<canvas id="board" class="my-card shadow-sm"></canvas> 
   					<div id="stats-container" class="d-none d-md-flex">
-						<div class="row card shadow-sm" id="stats-panel-1">
+						<div class="row my-card shadow-sm" id="stats-panel-1">
   							<div style="height: 20%"><h4><b>Next Piece</b></h4></div>
   							<canvas id="next-box"></canvas>
   						</div>
-  						<div class="row card shadow-sm" id="stats-panel-2">
+  						<div class="row my-card shadow-sm" id="stats-panel-2">
   							<div style="height: 33%">
   								<h4><b>Level</b>
   									<span class="stat-sm"><span>&nbsp;–&nbsp;&nbsp;</span><span class="level-stat"></span></span>
@@ -51,7 +51,7 @@
 								<h4 class="stat-lg score-stat"></h4>
   							</div> 	
   						</div>
-  						<div class="row card shadow-sm" id="stats-panel-3">
+  						<div class="row my-card shadow-sm" id="stats-panel-3">
   							<div style="height: 33%">
   								<h4><b>Tetris Rate</b>
   									<span class="stat-sm"><span>&nbsp;–&nbsp;&nbsp;</span><span class="tetris-rate-stat"></span>%</span>
@@ -75,7 +75,7 @@
   				</div>
 
 					<div id="level-selection-container" class="row">
-						<div id="level-selection-card" class="card shadow-sm">
+						<div id="level-selection-card" class="my-card shadow-sm">
 							<div style="height: 25%">
 								<h1 class="display-4">Tetris</h1>
 							</div>
@@ -96,7 +96,7 @@
 					</div>
 
 					<div id="game-over-container" class="row">
-						<div id="game-over-card" class="card shadow-sm">
+						<div id="game-over-card" class="my-card shadow-sm">
 							<div style="height: 25%">
 								<h1 class="display-4">Game Over</h1>
 							</div>
