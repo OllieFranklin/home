@@ -38,8 +38,7 @@ class LevelSelectView {
 	}
 
 	/**
-	 * Stolen from StackOverflow.
-	 * A way to detect when a range input's value changes
+	 * Stolen from StackOverflow. A way to detect when a range input's value changes.
 	 */
 	static addRangeChangeListener(r, f) {
 	  var n,c,m;

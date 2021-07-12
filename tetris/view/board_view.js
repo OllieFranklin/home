@@ -10,7 +10,14 @@ class BoardView {
 
 		// find a width for the board that's divisible by 10
 		// this ensures that all cells can be rendered on integer values
-		const height90 = 0.9 * window.innerHeight;
+
+		// first we need to find the height of the document
+		const body = document.body, html = document.documentElement;
+		const documentHeight = Math.max( body.scrollHeight, body.offsetHeight,
+			html.clientHeight, html.scrollHeight, html.offsetHeight);
+
+		// then set the board height to 90% document height
+		const height90 = 0.9 * documentHeight;
 		const boardHeight = height90 - height90 % 20;
 
 		this.canvas.style.height = boardHeight + "px";

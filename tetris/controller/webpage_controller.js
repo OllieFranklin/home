@@ -1,7 +1,7 @@
 document.querySelector("#new-game-btn").addEventListener("click", () => WebpageController.newGame());
 document.querySelector("#select-level-btn").addEventListener("click", () => WebpageController.selectLevel());
 
-document.addEventListener("keydown", (event) => WebpageController.pressContinue(event));
+document.addEventListener("keydown", (event) => WebpageController.keyHandler(event));
 
 class WebpageController {
 
@@ -11,7 +11,12 @@ class WebpageController {
 
 	static gameController;
 
-	static pressContinue(event) {
+	/**
+	 * Handles the ENTER key being pressed. Either continues to the next screen,
+	 * or plays/pauses the game.
+	 * 
+	 */ 
+	static keyHandler(event) {
 
 		if (event.repeat) {
 			return;

@@ -21,8 +21,8 @@ class NextBoxView {
 		const rows = tetromino.length;
 		const cols = tetromino[0].length;
 
-		const left = (this.canvas.width - cols * BoardView.cellSize) * 0.5;
-		const top = (this.canvas.height - rows * BoardView.cellSize) * 0.5;
+		const left = Math.round((this.canvas.width - cols * BoardView.cellSize) * 0.5);
+		const top = Math.round((this.canvas.height - rows * BoardView.cellSize) * 0.5);
 
 		for (let row = 0; row < rows; row++) {
 			

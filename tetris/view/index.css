@@ -38,9 +38,7 @@
 #stats-panel-1 {
     height: calc(24% + 16px);
     margin-bottom: 10px;
-    /*min-height: 12rem;*/
 }
-
 
 #stats-panel-2 {
     height: 38%;
