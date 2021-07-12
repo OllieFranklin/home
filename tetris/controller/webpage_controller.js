@@ -1,21 +1,50 @@
 document.querySelector("#new-game-btn").addEventListener("click", () => WebpageController.newGame());
 document.querySelector("#select-level-btn").addEventListener("click", () => WebpageController.selectLevel());
 
+document.addEventListener("keydown", (event) => WebpageController.pressContinue(event));
+
 class WebpageController {
 
 	static levelSelectElement = document.querySelector("#level-selection-container");
 	static gameElement = document.querySelector("#game-container");
 	static gameOverElement = document.querySelector("#game-over-container");
 
+	static gameController;
+
+	static pressContinue(event) {
+
+		if (event.repeat) {
+			return;
+		}
+
+		const levelSelectVisible = this.levelSelectElement.style.display !== "none";
+		const gameOverVisible = this.gameOverElement.style.display !== "none"
+		const gameVisible = this.gameElement.style.display !== "none";
+
+		if (event.keyCode == 13) {
+			if (levelSelectVisible) {
+				this.newGame();
+			} else if (gameOverVisible) {
+				this.selectLevel();
+			} else if (gameVisible) {
+				this.gameController.togglePlayPause();
+			}
+		}
+	}
+
 	static newGame() {
 		// show game element, hide everything else
 		this.gameElement.style.display = "flex";
 		this.levelSelectElement.style.display = "none";
 		this.gameOverElement.style.display = "none";
+
+		// lose focus on the button/slider after this window is hidden
+		document.querySelector("#new-game-btn").blur();
+		document.querySelector("#level-range").blur();
 		
 		const level = document.querySelector("#level-range").value;
-		const gameController = new GameController(level);
-		gameController.startGame();
+		this.gameController = new GameController(level);
+		this.gameController.startGame();
 	}
 
 	static gameOver() {
@@ -31,7 +60,7 @@ class WebpageController {
 		this.gameElement.style.display = "none";
 		this.gameOverElement.style.display = "none";
 
-		document.querySelector("#game-container").style.display = "none";
-		document.querySelector("#level-selection-container").style.display = "flex";
+		// lose focus on the button after it is pressed
+		document.querySelector("#select-level-btn").blur();
 	}
 }

@@ -39,6 +39,10 @@ class GameController {
         StatsView.draw(state);
     }
 
+    togglePlayPause() {
+        console.log("play/pause toggled");
+    }
+
     handleKeyPress(event, isPressed) {
         if (event.repeat)
             return;

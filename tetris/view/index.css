@@ -14,13 +14,10 @@
 }
 
 #game-container {
-    height: 90vh;
     display: none;
 }
 
 #board {
-    width: 45vh;
-    height: 90vh;
     padding: 0px;
     border: none;
 }

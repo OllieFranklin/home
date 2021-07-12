@@ -7,10 +7,22 @@ class BoardView {
 	static cellSize = 0;
 
 	static resize() {
+
+		// find a width for the board that's divisible by 10
+		// this ensures that all cells can be rendered on integer values
+		const height90 = 0.9 * window.innerHeight;
+		const boardHeight = height90 - height90 % 20;
+
+		this.canvas.style.height = boardHeight + "px";
+		this.canvas.style.width = (boardHeight * 0.5) + "px";
+
 		if (this.canvas.height != this.canvas.offsetHeight) {
 			this.canvas.height = this.canvas.offsetHeight;
 			this.canvas.width = this.canvas.offsetWidth;
 		}
+
+		// also update the stats container to be the same height as the board
+		document.querySelector("#stats-container").style.height = this.canvas.style.height;
 	}
 
 	static draw(gameState) {
