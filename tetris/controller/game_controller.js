@@ -11,8 +11,9 @@ class GameController {
 
     startGame() {
         const me = this;
+        this.isPaused = false;
         this.timer = setInterval(() => me.step(), 1000/60);
-
+        
         BoardView.resize();
         NextBoxView.resize();
 
@@ -20,27 +21,25 @@ class GameController {
         NextBoxView.clear();
     }
 
-    stopGame() {
-        if (this.timer !== undefined) {
-            clearInterval(this.timer);
-        }
-    }
-
     step() {
-        const state = this.game.nextFrame(this.keyStates);
-
-        if (state.isGameOver) {
-            this.stopGame();
-            WebpageController.gameOver();
+        if (!this.isPaused) {
+            this.state = this.game.nextFrame(this.keyStates);
         }
 
-        BoardView.draw(state);
-        NextBoxView.draw(state);
-        StatsView.draw(state);
+        if (this.state !== undefined) {
+            BoardView.draw(this.state);
+            NextBoxView.draw(this.state);
+            StatsView.draw(this.state);
+
+            if (this.state.isGameOver) {
+                clearInterval(this.timer);
+                WebpageController.gameOver();
+            }
+        }
     }
 
     togglePlayPause() {
-        console.log("play/pause toggled");
+        this.isPaused = !this.isPaused;
     }
 
     handleKeyPress(event, isPressed) {

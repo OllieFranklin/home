@@ -1,5 +1,6 @@
 window.addEventListener("resize", () => BoardView.resize());
 
+
 class BoardView {
 
 	static canvas = document.querySelector("#board");
