@@ -1,120 +1,126 @@
 <!doctype html>
 <html lang="en">
-  <head>
-	  <meta charset="utf-8">
-	  <meta name="viewport" content="width=device-width, initial-scale=1">
-	  
-	  <title>Tetris</title>
 
-	  <!-- Bootstrap 5.0.1 -->
-	  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<link rel="stylesheet" href="view/index.css">
-  </head>
-  
-  <body>
+	<title>Tetris</title>
 
-  	<div id="page" class="container-fluid vh-100">
-	    
-  		<div class="row h-100">
+	<!-- Bootstrap 5.0.1 -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
-  			<div id="navigation" class="col-1 col-lg-2 my-card h-100">
-  				<a href="javascript:showLevelSelect()">Show level select</a>
-  				<a href="javascript:showGame()">Show game</a>
-  			</div>
+	<link rel="stylesheet" href="view/index.css">
+</head>
 
-  			<div class="col-11 col-lg-10 align-items-center h-100" id="main-container">
-  				<div id="game-container" class="row">
-  					<canvas id="board" class="my-card shadow-sm"></canvas> 
-  					<div id="stats-container" class="d-none d-md-flex">
-							<div class="row my-card shadow-sm" id="stats-panel-1">
-								<div style="height: 20%"><h4><b>Next Piece</b></h4></div>
-								<canvas id="next-box"></canvas>
-							</div>
-  						<div class="row my-card shadow-sm" id="stats-panel-2">
-  							<div style="height: 33%">
-  								<h4><b>Level</b>
-  									<span class="stat-sm"><span>&nbsp;–&nbsp;&nbsp;</span><span class="level-stat"></span></span>
-								</h4>
-								<h4 class="stat-lg level-stat"></h4>
-  							</div>
-  							<div style="height: 33%">
-  								<h4><b>Lines</b>
-  									<span class="stat-sm"><span>&nbsp;–&nbsp;&nbsp;</span><span class="lines-stat"></span></span>
-								</h4>
-								<h4 class="stat-lg lines-stat"></h4>
-  							</div>
-  							<div style="height: 33%">
-  								<h4><b>Score</b>
-  									<span class="stat-sm"><span>&nbsp;–&nbsp;&nbsp;</span><span class="score-stat"></span></span>
-								</h4>
-								<h4 class="stat-lg score-stat"></h4>
-  							</div> 	
-  						</div>
-  						<div class="row my-card shadow-sm" id="stats-panel-3">
-  							<div style="height: 33%">
-  								<h4><b>Tetris Rate</b>
-  									<span class="stat-sm"><span>&nbsp;–&nbsp;&nbsp;</span><span class="tetris-rate-stat"></span>%</span>
-								</h4>
-								<h4 class="stat-lg"><span class="tetris-rate-stat"></span>%</h4>
-  							</div>
-  							<div style="height: 33%">
-  								<h4><b>Drought</b>
-  									<span class="stat-sm"><span>&nbsp;–&nbsp;&nbsp;</span><span class="drought-stat"></span></span>
-								</h4>
-								<h4 class="stat-lg drought-stat"></h4>
-  							</div>
-  							<div style="height: 33%">
-  								<h4><b>Burn</b>
-  									<span class="stat-sm"><span>&nbsp;–&nbsp;&nbsp;</span><span class="burn-stat"></span></span>
-								</h4>
-								<h4 class="stat-lg burn-stat"></h4>
-  							</div> 					
-  						</div>
-  					</div>
-  				</div>
+<body>
 
-					<div id="level-selection-container" class="row">
-						<div id="level-selection-card" class="my-card shadow-sm">
-							<div style="height: 25%">
-								<h1 class="display-4">Tetris</h1>
-							</div>
-							<div style="height: 25%">
-								<h2>Select initial level</h2>
-								<!-- <label for="level-range" class="form-label">Level</label> -->
-								<input type="range" class="form-range" min="0" max="19" id="level-range">							
-							</div>
-							<div style="height: 35%">
-								<b><h2 id="level-select-value"></h3></b>
-								<i><h4 id="drop-rate-desc"></h4></i>
-								<i><h4 id="lines-to-level-up"></h4></i>
-							</div>
-							<div style="height: 15%">
-								<button type="button" id="new-game-btn" class="btn btn-primary"><b>CONTINUE</b></button>
-							</div>
+	<nav id="navigation"></nav>
+
+	<div id="page" class="container-fluid align-items-center vh-100">
+
+		<div id="level-selection-container" class="row h-100">
+			<div class="col-2"></div>
+			<div id="level-selection-page" class="d-flex col-8 align-items-center">
+				<h1 class="display-4">Pick a Starting Level</h1>
+				<!-- <label for="level-range" class="form-label">Level</label> -->
+				<input type="range" class="form-range" min="0" max="19" id="level-range">
+
+				<h2 id="level-select-value"></h3>
+				<h4 id="drop-rate-desc"></h4>
+				<h4 id="lines-to-level-up"></h4>
+
+				<button type="button" id="new-game-btn" class="btn btn-primary"><b>CONTINUE</b></button>
+			</div>
+			<div class="col-2"></div>
+		</div>
+
+		<div class="align-items-center h-100" id="game-container">
+			<div class="row">
+				<canvas id="board" class="my-card shadow-sm"></canvas>
+				<div id="stats-container" class="d-none d-md-flex">
+					<div class="row my-card shadow-sm" id="stats-panel-1">
+						<div style="height: 20%">
+							<h4><b>Next Piece</b></h4>
+						</div>
+						<canvas id="next-box"></canvas>
+					</div>
+					<div class="row my-card shadow-sm" id="stats-panel-2">
+						<div style="height: 33%">
+							<h4><b>Level</b>
+								<span class="stat-sm"><span>&nbsp;–&nbsp;&nbsp;</span><span
+										class="level-stat"></span></span>
+							</h4>
+							<h4 class="stat-lg level-stat"></h4>
+						</div>
+						<div style="height: 33%">
+							<h4><b>Lines</b>
+								<span class="stat-sm"><span>&nbsp;–&nbsp;&nbsp;</span><span
+										class="lines-stat"></span></span>
+							</h4>
+							<h4 class="stat-lg lines-stat"></h4>
+						</div>
+						<div style="height: 33%">
+							<h4><b>Score</b>
+								<span class="stat-sm"><span>&nbsp;–&nbsp;&nbsp;</span><span
+										class="score-stat"></span></span>
+							</h4>
+							<h4 class="stat-lg score-stat"></h4>
 						</div>
 					</div>
-
-					<div id="game-over-container" class="row">
-						<div id="game-over-card" class="my-card shadow-sm">
-							<div style="height: 25%">
-								<h1 class="display-4">Game Over</h1>
-							</div>
-							<div style="height: 60%">
-								<h4>Some stats and stuff...</h4>			
-							</div>
-							<div style="height: 15%">
-								<button type="button" id="select-level-btn" class="btn btn-primary"><b>CONTINUE</b></button>
-							</div>
+					<div class="row my-card shadow-sm" id="stats-panel-3">
+						<div style="height: 33%">
+							<h4><b>Tetris Rate</b>
+								<span class="stat-sm"><span>&nbsp;–&nbsp;&nbsp;</span><span
+										class="tetris-rate-stat"></span>%</span>
+							</h4>
+							<h4 class="stat-lg"><span class="tetris-rate-stat"></span>%</h4>
+						</div>
+						<div style="height: 33%">
+							<h4><b>Drought</b>
+								<span class="stat-sm"><span>&nbsp;–&nbsp;&nbsp;</span><span
+										class="drought-stat"></span></span>
+							</h4>
+							<h4 class="stat-lg drought-stat"></h4>
+						</div>
+						<div style="height: 33%">
+							<h4><b>Burn</b>
+								<span class="stat-sm"><span>&nbsp;–&nbsp;&nbsp;</span><span
+										class="burn-stat"></span></span>
+							</h4>
+							<h4 class="stat-lg burn-stat"></h4>
 						</div>
 					</div>
+				</div>
+			</div>
+		</div>
 
-  			</div>
+		<div id="game-over-container" class="row h-100">
+			<div class="col-3"></div>
+			<div id="game-over-page" class="d-flex col-6 align-items-center">
+				<h1 class="display-4">Game Over</h1>
+				<h2>Statistics</h2>
+				<h4>Score: TODO</h4>
+				<h4>Lines: TODO</h4>
+				<h4>Starting Level: TODO</h4>
+				<h4>Tetris Rate: TODO</h4>
+				<h4>Largest Drought: TODO</h4>
+				<h4></h4>
+				<p>[Line graph of points gained throughout game]</p>
+				<h4></h4>
+				<p>[Line graph of play field height throughout game]</p>
+				<h4></h4>
+				<p>[Bar chart of piece distribution]</p>
 
-  		</div>
-  	</div>
+				<button type="button" id="select-level-btn" class="btn btn-primary"><b>CONTINUE</b></button>
+			</div>
+			<div class="col-3"></div>
+		</div>
 
-  <img src="view/textures/tetrominoes/default/I_Tetromino.png" id="I_Tetromino_default" class="texture">
+	</div>
+
+	<img src="view/textures/tetrominoes/default/I_Tetromino.png" id="I_Tetromino_default" class="texture">
 	<img src="view/textures/tetrominoes/default/J_Tetromino.png" id="J_Tetromino_default" class="texture">
 	<img src="view/textures/tetrominoes/default/L_Tetromino.png" id="L_Tetromino_default" class="texture">
 	<img src="view/textures/tetrominoes/default/O_Tetromino.png" id="O_Tetromino_default" class="texture">
@@ -122,9 +128,11 @@
 	<img src="view/textures/tetrominoes/default/T_Tetromino.png" id="T_Tetromino_default" class="texture">
 	<img src="view/textures/tetrominoes/default/Z_Tetromino.png" id="Z_Tetromino_default" class="texture">
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+		crossorigin="anonymous"></script>
 
-  <!-- MODEL -->
+	<!-- MODEL -->
 	<script defer type="text/javascript" src="model/game_state.js"></script>
 	<script defer type="text/javascript" src="model/point.js"></script>
 	<script defer type="text/javascript" src="model/gravity.js"></script>
@@ -140,7 +148,7 @@
 	<!-- CONTROLLER -->
 	<script defer type="text/javascript" src="controller/webpage_controller.js"></script>
 	<script defer type="text/javascript" src="controller/game_controller.js"></script>
-	
+
 	<!-- VIEW -->
 	<script defer type="text/javascript" src="view/textures.js"></script>
 	<script defer type="text/javascript" src="view/board_view.js"></script>
@@ -148,5 +156,6 @@
 	<script defer type="text/javascript" src="view/stats_view.js"></script>
 	<script defer type="text/javascript" src="view/level_select_view.js"></script>
 
-  </body>
+</body>
+
 </html>

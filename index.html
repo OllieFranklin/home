@@ -1,163 +1,207 @@
 <!DOCTYPE html>
 <html>
 
-	<meta charset="utf-8">
+<meta charset="utf-8">
 
-	<head>
+<head>
 
-		<link rel="icon" href="favicon.ico" sizes="any"><!-- 32×32 -->
-		<link rel="icon" href="icon.svg" type="image/svg+xml">
-		<link rel="apple-touch-icon" href="apple-touch-icon.png"><!-- 180×180 -->
-		<link rel="manifest" href="manifest.webmanifest">
+	<link rel="icon" href="favicon.ico" sizes="any"><!-- 32×32 -->
+	<link rel="icon" href="icon.svg" type="image/svg+xml">
+	<link rel="apple-touch-icon" href="apple-touch-icon.png"><!-- 180×180 -->
+	<link rel="manifest" href="manifest.webmanifest">
 
-		<title>0llie.com - Home</title>
-	
-		<style>
-			#background {
-				position: fixed;
-				width: 100%;
-				height: 100%;
-				margin: 0px;
-				padding: 0px;
-				top: 0px;
-				left: 0px;
-				z-index: -1;
-				background: #2f3742;
-			}
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap" rel="stylesheet">
 
-			#logo {
-				position: fixed;
-				width: 40%;
-				left: 50%;
-				top: 40%;
-				transform: translate(-50%, -50%);
-				z-index: 1;
-			}
+	<title>0llie.com - Home</title>
 
-			.star {
-				position: fixed;
-				animation: twinkle linear alternate infinite;
+	<style>
+		#background {
+			position: fixed;
+			width: 100%;
+			height: 100%;
+			margin: 0px;
+			padding: 0px;
+			top: 0px;
+			left: 0px;
+			z-index: -1;
+			background: #2f3742;
+		}
+
+		#logo {
+			width: 40%;
+		}
+
+		.star {
+			position: fixed;
+			animation: twinkle linear alternate infinite;
+			transform: scale(0);
+			opacity: 30%;
+		}
+
+		@keyframes twinkle {
+			0% {
 				transform: scale(0);
 				opacity: 30%;
 			}
 
-			@keyframes twinkle {
-				0% {
-					transform: scale(0);
-					opacity: 30%;
-				}
-				50% {
-					transform: scale(1);
-					opacity: 100%;
-				}
+			50% {
+				transform: scale(1);
+				opacity: 100%;
+			}
+		}
+
+		.planet {
+			position: fixed;
+			z-index: 1;
+			height: 15%;
+			transform: rotate(0deg) translate(-50%, -50%);
+			animation: shimmy linear 6s infinite;
+			animation-timing-function: ease-in-out;
+		}
+
+		#planet1 {
+			display: block;
+			left: 15%;
+			top: 15%;
+		}
+
+		#planet2 {
+			display: block;
+			left: 80%;
+			top: 75%;
+		}
+
+		@keyframes shimmy {
+			25% {
+				transform: rotate(3deg) translate(-50%, -48%);
 			}
 
-			.planet {
-				position: fixed;
-				/*transform: translate(-50%, -50%);*/
-				z-index: 1;
-				height: 15%;
-				transform: rotate(0deg) translate(-50%, -50%);
-				animation: shimmy linear 6s infinite;
-				animation-timing-function: ease-in-out;
+			75% {
+				transform: rotate(-3deg) translateY(-50%, -52%);
+			}
+		}
+
+		@media screen and (max-width: 1100px) {
+			#logo {
+				width: 80%;
+			}
+			
+			.button {
+				width: 60%;
 			}
 
 			#planet1 {
-				display: block;
-				left: 15%;
-				top:15%;
+				display: none;
 			}
 
 			#planet2 {
-				display: block;
-				left: 80%;
-				top: 75%;
+				display: none;
 			}
 
-			@keyframes shimmy {
-				25% {
-					transform: rotate(3deg) translate(-50%, -48%);
-				}
-				75% {
-					transform: rotate(-3deg) translateY(-50%, -52%);
-				}
-			}
+			
+		}
 
+		.button {
+			position: relative;
+			z-index: 1;
+			font-family: 'Nunito', sans-serif;
+			font-size: 2rem;
+			width: calc(250px + 5%);
+			border: none;
+			padding: 0.8rem;
+			border-radius: 10px;
+			box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
+			-webkit-box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
+			-moz-box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
+			text-decoration: none;
+			text-align: center;
+			color: black;
+		}
 
-			@media screen and (max-width: 1100px) {
-				#logo {
-					width: 80%;
-				}
-				#planet1 {
-					display: none;
-				}
-				#planet2 {
-					left: 60%;
-				}
-			}
+		#button1 {
+			background: #02EE60;
+			margin-top: 80px;
+		}
 
-			@media screen and (max-height: 512px) {
-				#planet2 {
-					display: none;
-				}
-			}
+		#button2 {
+			background: #5DB0F2;
+			margin-top: 50px;
+		}
 
-		</style>
-	</head>
+		.content {
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			position: fixed;
+			top: 50%;
+			width: 100%;
+			transform: translateY(-50%);
+			z-index: 1;
+		}
+	</style>
+</head>
 
-	<body>
+<body>
 
-		<div id="background"></div>
+	<div id="background"></div>
 
+	
+	<img src="planet1.svg" class="planet" id="planet1">
+	<img src="planet2.svg" class="planet" id="planet2">
+	
+	<div class="content">
 		<img src="logo.svg" id="logo">
-		<img src="planet1.svg" class="planet" id="planet1">
-		<img src="planet2.svg" class="planet" id="planet2">
+		<a class="button" id="button1" href="https://www.google.com">Personal Project</a>
+		<a class="button" id="button2" href="https://github.com/OllieFranklin">Github</a>
+	</div>
 
-		<script type="text/javascript">
-		const w=window,d=document,e=d.documentElement,g=d.getElementsByTagName('body')[0];
-		const WIDTH=w.innerWidth||e.clientWidth||g.clientWidth;
-		const HEIGHT=w.innerHeight||e.clientHeight||g.clientHeight;
+	<script type="text/javascript">
+		const w = window, d = document, e = d.documentElement, g = d.getElementsByTagName('body')[0];
+		const WIDTH = w.innerWidth || e.clientWidth || g.clientWidth;
+		const HEIGHT = w.innerHeight || e.clientHeight || g.clientHeight;
 
-		const NUM_STARS = WIDTH*HEIGHT / 25000;
-		
-		for (let i=0; i<NUM_STARS; i++) {
+		const NUM_STARS = WIDTH * HEIGHT / 25000;
 
-			let delay = Math.random()*10000;
+		for (let i = 0; i < NUM_STARS; i++) {
+
+			let delay = Math.random() * 10000;
 
 			if (i % 2 === 0) {
-				setTimeout(function() {addStar("star1");}, delay);
+				setTimeout(function () { addStar("star1"); }, delay);
 			} else {
-				setTimeout(function() {addStar("star2");}, delay);
-			}			
+				setTimeout(function () { addStar("star2"); }, delay);
+			}
 		}
 
 		function addStar(name) {
-				
-				let left = Math.random();
-				let top = Math.random();
 
-				let star = document.createElement("IMG");
-				star.src = name + ".svg";
-				star.className = "star";
-				star.id = name;
-			
-				star.style.animationDuration = (5 + Math.random()*10).toString() + "s";
-				star.style.left = (left*100).toString() + "%";
-				star.style.top = (top*100).toString() + "%";
-				document.body.appendChild(star);
+			let left = Math.random();
+			let top = Math.random();
+
+			let star = document.createElement("IMG");
+			star.src = name + ".svg";
+			star.className = "star";
+			star.id = name;
+
+			star.style.animationDuration = (5 + Math.random() * 10).toString() + "s";
+			star.style.left = (left * 100).toString() + "%";
+			star.style.top = (top * 100).toString() + "%";
+			document.body.appendChild(star);
 		}
 
-		</script>
+	</script>
 
-		<style>
-			#star1 {
-				height: 3%;
-			}
+	<style>
+		#star1 {
+			height: 3%;
+		}
 
-			#star2 {
-				height: 2%
-			}
-		</style>
-	</body>
+		#star2 {
+			height: 2%
+		}
+	</style>
+</body>
 
 </html>

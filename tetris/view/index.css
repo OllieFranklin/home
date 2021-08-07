@@ -1,6 +1,7 @@
 #page {
     background: #ededed;
     min-height: 500px;
+    padding-top: 4rem;
 }
 
 #navigation {
@@ -8,13 +9,9 @@
     border-radius: 0px;
 }
 
-#main-container {
-    display: flex;
-    justify-content: center;
-}
-
 #game-container {
     display: none;
+    justify-content: center;
 }
 
 #board {
@@ -70,28 +67,20 @@
 }
 
 #level-selection-container {
-    width: 450px;
-    height: 450px;
     display: flex;
 }
 
-#level-selection-card {
-    width: 100%;
-    height: 100%;
-    display: flex;
+#level-selection-page {
+    background: #fff;
     flex-direction: column;
 }
 
 #game-over-container {
-    width: 450px;
-    height: 450px;
     display: none;
 }
 
-#game-over-card {
-    width: 100%;
-    height: 100%;
-    display: flex;
+#game-over-page {
+    background: #fff;
     flex-direction: column;
 }
 
@@ -105,6 +94,16 @@
 
 .texture {
     display: none;
+}
+
+#navigation {
+    position: fixed;
+    height: 4rem;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    margin: 0px;
+    background: #2C2C2C;
 }
 
 @media screen and (max-height: 825px) {
