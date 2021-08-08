@@ -12,11 +12,31 @@
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap" rel="stylesheet">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Nunito:wght@400;600&display=swap"
+		rel="stylesheet">
+
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 	<title>0llie.com - Home</title>
 
 	<style>
+		body {
+			overflow-x: hidden;
+		}
+
+		p {
+			font-family: 'Montserrat', sans-serif;
+			font-weight: 400;
+			font-size: 1.3rem;
+		}
+
+		h1 {
+			font-family: 'Nunito', sans-serif;
+			font-weight: 600;
+			font-size: 3.2rem;
+		}
+
 		#background {
 			position: fixed;
 			width: 100%;
@@ -87,7 +107,7 @@
 			#logo {
 				width: 80%;
 			}
-			
+
 			.button {
 				width: 60%;
 			}
@@ -100,15 +120,19 @@
 				display: none;
 			}
 
-			
+			#project-description {
+				width: 90%;
+			}
+
 		}
 
 		.button {
 			position: relative;
 			z-index: 1;
 			font-family: 'Nunito', sans-serif;
+			font-weight: 600;
 			font-size: 2rem;
-			width: calc(250px + 5%);
+			width: 18rem;
 			border: none;
 			padding: 0.8rem;
 			border-radius: 10px;
@@ -130,15 +154,68 @@
 			margin-top: 50px;
 		}
 
-		.content {
+		.full-page-container {
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			height: 100%;
+			width: 100%;
+		}
+
+		#main-container {
+			z-index: 1;
 			display: flex;
 			align-items: center;
+			justify-content: center;
 			flex-direction: column;
-			position: fixed;
-			top: 50%;
+		}
+
+		.full-page-container {
+			display: flex;
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			height: 100%;
 			width: 100%;
-			transform: translateY(-50%);
-			z-index: 1;
+			overflow-y: inherit;
+		}
+
+		#project-description-container {
+			z-index: 10;
+			background: white;
+			display: none;
+			flex-direction: row;
+			justify-content: center;
+		}
+
+		#close-icon {
+			cursor: pointer;
+			position: absolute;
+			top: 1rem;
+			right: 1rem;
+			font-size: 4rem;
+		}
+
+		#project-description {
+			width: 60%;
+			padding-top: 5rem;
+		}
+
+		#button-container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		#button3 {
+			background: #02EE60;
+			margin-top: 50px;
+		}
+
+		#button4 {
+			background: #5DB0F2;
+			margin-top: 50px;
+			margin-bottom: 50px;
 		}
 	</style>
 </head>
@@ -147,14 +224,15 @@
 
 	<div id="background"></div>
 
-	
-	<img src="planet1.svg" class="planet" id="planet1">
-	<img src="planet2.svg" class="planet" id="planet2">
-	
-	<div class="content">
-		<img src="logo.svg" id="logo">
-		<a class="button" id="button1" href="https://www.google.com">Personal Project</a>
-		<a class="button" id="button2" href="https://github.com/OllieFranklin">Github</a>
+	<img src="homepage/planet1.svg" class="planet" id="planet1">
+	<img src="homepage/planet2.svg" class="planet" id="planet2">
+
+	<div id="main-container" class="full-page-container">
+		<img src="homepage/logo.svg" id="logo">
+		<a class="button" id="button1" href="javascript:void(0)"
+			onclick="showProjectDescription();">Personal&nbsp;Project</a>
+		<a class="button" id="button2" href="https://github.com/OllieFranklin" target="_blank"
+			rel="noopener noreferrer">Github</a>
 	</div>
 
 	<script type="text/javascript">
@@ -169,9 +247,9 @@
 			let delay = Math.random() * 10000;
 
 			if (i % 2 === 0) {
-				setTimeout(function () { addStar("star1"); }, delay);
+				setTimeout(function () { addStar("homepage/star1"); }, delay);
 			} else {
-				setTimeout(function () { addStar("star2"); }, delay);
+				setTimeout(function () { addStar("homepage/star2"); }, delay);
 			}
 		}
 
@@ -191,7 +269,38 @@
 			document.body.appendChild(star);
 		}
 
+		function showProjectDescription() {
+			document.querySelector("#project-description-container").style.display = "flex";
+		}
+
+		function hideProjectDescription() {
+			document.querySelector("#project-description-container").style.display = "none";
+		}
+
 	</script>
+
+	<div id="project-description-container" class="full-page-container">
+		<span id="close-icon" class="material-icons" onclick="hideProjectDescription();">close</span>
+		<div id="project-description">
+			<h1>Tetris Project</h1>
+			<p>As a fan of the Classic Tetris World Championships, a competition which uses the classic NES version of
+				the game, I started playing classic Tetris in my free time. However, I was not a fan of the limited
+				accessibility and outdated interface that the over 30-year-old game provides.</p>
+			<p>I have made a web-based version of Tetris which has the exact same mechanics as NES Tetris, but with a
+				modern user interface. Inspired by keybr.com, I am planning to incorporate a system to keep track of my
+				statistics over time using Ruby on Rails. This will allow me to track my improvement as I play games of
+				Tetris.</p>
+			<p>This project is still a work-in-progress, but the current version and its source code can be viewed
+				below.</p>
+			<div id="button-container">
+				<a id="button3" class="button" href="https://0llie.com/tetris/" target="_blank"
+					rel="noopener noreferrer">View&nbsp;Project</a>
+				<a id="button4" class="button" href="https://github.com/OllieFranklin/website/tree/gh-pages/tetris"
+					target="_blank" rel="noopener noreferrer">Source&nbsp;Code</a>
+			</div>
+
+		</div>
+	</div>
 
 	<style>
 		#star1 {
