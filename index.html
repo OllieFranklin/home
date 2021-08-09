@@ -4,220 +4,25 @@
 <meta charset="utf-8">
 
 <head>
-
+	<!-- Favicons -->
 	<link rel="icon" href="favicon.ico" sizes="any"><!-- 32×32 -->
 	<link rel="icon" href="icon.svg" type="image/svg+xml">
 	<link rel="apple-touch-icon" href="apple-touch-icon.png"><!-- 180×180 -->
 	<link rel="manifest" href="manifest.webmanifest">
 
+	<!-- Fonts -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link
-		href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Nunito:wght@400;600&display=swap"
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Nunito:wght@400;600&display=swap"
 		rel="stylesheet">
-
+	
+	<!-- Icon font -->
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+	<link rel="stylesheet" href="homepage/index.css">
+	<link rel="stylesheet" href="main-styles.css">
+
 	<title>0llie.com - Home</title>
-
-	<style>
-		body {
-			overflow-x: hidden;
-		}
-
-		p {
-			font-family: 'Montserrat', sans-serif;
-			font-weight: 400;
-			font-size: 1.3rem;
-		}
-
-		h1 {
-			font-family: 'Nunito', sans-serif;
-			font-weight: 600;
-			font-size: 3.2rem;
-		}
-
-		#background {
-			position: fixed;
-			width: 100%;
-			height: 100%;
-			margin: 0px;
-			padding: 0px;
-			top: 0px;
-			left: 0px;
-			z-index: -1;
-			background: #2f3742;
-		}
-
-		#logo {
-			width: 40%;
-		}
-
-		.star {
-			position: fixed;
-			animation: twinkle linear alternate infinite;
-			transform: scale(0);
-			opacity: 30%;
-		}
-
-		@keyframes twinkle {
-			0% {
-				transform: scale(0);
-				opacity: 30%;
-			}
-
-			50% {
-				transform: scale(1);
-				opacity: 100%;
-			}
-		}
-
-		.planet {
-			position: fixed;
-			z-index: 1;
-			height: 15%;
-			transform: rotate(0deg) translate(-50%, -50%);
-			animation: shimmy linear 6s infinite;
-			animation-timing-function: ease-in-out;
-		}
-
-		#planet1 {
-			display: block;
-			left: 15%;
-			top: 15%;
-		}
-
-		#planet2 {
-			display: block;
-			left: 80%;
-			top: 75%;
-		}
-
-		@keyframes shimmy {
-			25% {
-				transform: rotate(3deg) translate(-50%, -48%);
-			}
-
-			75% {
-				transform: rotate(-3deg) translateY(-50%, -52%);
-			}
-		}
-
-		@media screen and (max-width: 1100px) {
-			#logo {
-				width: 80%;
-			}
-
-			.button {
-				width: 60%;
-			}
-
-			#planet1 {
-				display: none;
-			}
-
-			#planet2 {
-				display: none;
-			}
-
-			#project-description {
-				width: 90%;
-			}
-
-		}
-
-		.button {
-			position: relative;
-			z-index: 1;
-			font-family: 'Nunito', sans-serif;
-			font-weight: 600;
-			font-size: 2rem;
-			width: 18rem;
-			border: none;
-			padding: 0.8rem;
-			border-radius: 10px;
-			box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
-			-webkit-box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
-			-moz-box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
-			text-decoration: none;
-			text-align: center;
-			color: black;
-		}
-
-		#button1 {
-			background: #02EE60;
-			margin-top: 80px;
-		}
-
-		#button2 {
-			background: #5DB0F2;
-			margin-top: 50px;
-		}
-
-		.full-page-container {
-			position: absolute;
-			top: 0px;
-			left: 0px;
-			height: 100%;
-			width: 100%;
-		}
-
-		#main-container {
-			z-index: 1;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			flex-direction: column;
-		}
-
-		.full-page-container {
-			display: flex;
-			position: absolute;
-			top: 0px;
-			left: 0px;
-			height: 100%;
-			width: 100%;
-			overflow-y: inherit;
-		}
-
-		#project-description-container {
-			z-index: 10;
-			background: white;
-			display: none;
-			flex-direction: row;
-			justify-content: center;
-		}
-
-		#close-icon {
-			cursor: pointer;
-			position: absolute;
-			top: 1rem;
-			right: 1rem;
-			font-size: 4rem;
-		}
-
-		#project-description {
-			width: 60%;
-			padding-top: 5rem;
-		}
-
-		#button-container {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-		}
-
-		#button3 {
-			background: #02EE60;
-			margin-top: 50px;
-		}
-
-		#button4 {
-			background: #5DB0F2;
-			margin-top: 50px;
-			margin-bottom: 50px;
-		}
-	</style>
 </head>
 
 <body>
@@ -234,50 +39,6 @@
 		<a class="button" id="button2" href="https://github.com/OllieFranklin" target="_blank"
 			rel="noopener noreferrer">Github</a>
 	</div>
-
-	<script type="text/javascript">
-		const w = window, d = document, e = d.documentElement, g = d.getElementsByTagName('body')[0];
-		const WIDTH = w.innerWidth || e.clientWidth || g.clientWidth;
-		const HEIGHT = w.innerHeight || e.clientHeight || g.clientHeight;
-
-		const NUM_STARS = WIDTH * HEIGHT / 25000;
-
-		for (let i = 0; i < NUM_STARS; i++) {
-
-			let delay = Math.random() * 10000;
-
-			if (i % 2 === 0) {
-				setTimeout(function () { addStar("homepage/star1"); }, delay);
-			} else {
-				setTimeout(function () { addStar("homepage/star2"); }, delay);
-			}
-		}
-
-		function addStar(name) {
-
-			let left = Math.random();
-			let top = Math.random();
-
-			let star = document.createElement("IMG");
-			star.src = name + ".svg";
-			star.className = "star";
-			star.id = name;
-
-			star.style.animationDuration = (5 + Math.random() * 10).toString() + "s";
-			star.style.left = (left * 100).toString() + "%";
-			star.style.top = (top * 100).toString() + "%";
-			document.body.appendChild(star);
-		}
-
-		function showProjectDescription() {
-			document.querySelector("#project-description-container").style.display = "flex";
-		}
-
-		function hideProjectDescription() {
-			document.querySelector("#project-description-container").style.display = "none";
-		}
-
-	</script>
 
 	<div id="project-description-container" class="full-page-container">
 		<span id="close-icon" class="material-icons" onclick="hideProjectDescription();">close</span>
@@ -302,15 +63,7 @@
 		</div>
 	</div>
 
-	<style>
-		#star1 {
-			height: 3%;
-		}
-
-		#star2 {
-			height: 2%
-		}
-	</style>
+	<script defer type="text/javascript" src="homepage/index.js"></script>
 </body>
 
 </html>
