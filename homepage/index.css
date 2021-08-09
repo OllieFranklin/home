@@ -90,32 +90,20 @@ body {
   }
 }
 
-.button {
-  position: relative;
-  z-index: 1;
-  font-family: "Nunito", sans-serif;
-  font-weight: 600;
-  font-size: 2rem;
-  width: 18rem;
-  border: none;
-  padding: 0.8rem;
-  border-radius: 10px;
-  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
-  -webkit-box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
-  text-decoration: none;
-  text-align: center;
-  color: black;
+.btn {
+  min-width: 18rem;
 }
 
 #button1 {
   background: #02ee60;
   margin-top: 80px;
+  position: relative;
 }
 
 #button2 {
   background: #5db0f2;
   margin-top: 50px;
+  position: relative;
 }
 
 .full-page-container {
